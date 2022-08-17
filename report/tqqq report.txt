@@ -1,0 +1,253 @@
+readme
+
+
+比较单日内tqqq是不是真的qqq的三倍波动
+波动过小的时候，还会涨跌不一致
+
+
+长期持有
+遇到暴跌,会出现qqq还是盈利的。但是tqqq已经把之前的盈利吐出来的情况
+tqqq需要一定程度的止盈和择时 还有地位加仓。 否则遇到暴跌，会出现浪费等待时间加的情况
+高位止盈。底位加仓
+
+
+长期持有,杠杆率的平均值是3.163
+这就让我注意到一个之前没有在意的重要细节：
+
+qqq 
+    2012/08 58 
+    2022/08 313
+    大约10年6倍
+
+
+tqqq:
+    2012/08 1 
+    2022/08 37.98
+    大约37倍
+
+37/6 = 6.16667
+也就是说tqqq的惊人数据也是因为qqq的出色表现导致的
+长牛会让tqqq的杠杆系数变大
+
+真的有钱人买入qqq spy schd是最舒服的了
+所以说真正的投资是一件很无聊的事情
+
+
+1 day average leverage is  2.9734
+7 days average leverage is  3.073
+12 days average leverage is  3.003
+17 days average leverage is  2.983
+22 days average leverage is  3.136
+27 days average leverage is  2.981
+32 days average leverage is  3.575
+37 days average leverage is  3.466
+42 days average leverage is  3.016
+47 days average leverage is  3.215
+52 days average leverage is  3.644
+57 days average leverage is  4.865
+62 days average leverage is  2.609
+67 days average leverage is  2.334
+72 days average leverage is  3.074
+77 days average leverage is  1.395
+82 days average leverage is  1.696
+87 days average leverage is  2.743
+92 days average leverage is  2.766
+97 days average leverage is  2.684
+102 days average leverage is  2.449
+107 days average leverage is  3.020
+112 days average leverage is  2.801
+117 days average leverage is  2.888
+122 days average leverage is  2.900
+127 days average leverage is  2.598
+132 days average leverage is  2.937
+137 days average leverage is  2.644
+142 days average leverage is  2.753
+147 days average leverage is  2.766
+152 days average leverage is  2.186
+157 days average leverage is  3.188
+162 days average leverage is  2.749
+167 days average leverage is  2.824
+172 days average leverage is  2.467
+177 days average leverage is  2.631
+182 days average leverage is  3.380
+187 days average leverage is  4.089
+192 days average leverage is  2.566
+197 days average leverage is  2.966
+202 days average leverage is  2.460
+207 days average leverage is  3.307
+212 days average leverage is  2.629
+217 days average leverage is  3.247
+222 days average leverage is  2.272
+227 days average leverage is  3.394
+232 days average leverage is  2.307
+237 days average leverage is  2.485
+242 days average leverage is  3.427
+247 days average leverage is  2.506
+252 days average leverage is  3.181
+257 days average leverage is  3.314
+262 days average leverage is  2.226
+267 days average leverage is  1.981
+272 days average leverage is  3.666
+277 days average leverage is  1.842
+282 days average leverage is  3.323
+287 days average leverage is  2.998
+292 days average leverage is  2.797
+297 days average leverage is  2.747
+302 days average leverage is  3.058
+307 days average leverage is  2.847
+312 days average leverage is  2.471
+317 days average leverage is  3.197
+322 days average leverage is  3.015
+327 days average leverage is  2.417
+332 days average leverage is  2.670
+337 days average leverage is  -0.802
+342 days average leverage is  2.667
+347 days average leverage is  2.773
+352 days average leverage is  2.882
+357 days average leverage is  2.254
+362 days average leverage is  3.093
+367 days average leverage is  2.611
+372 days average leverage is  3.010
+377 days average leverage is  2.397
+382 days average leverage is  2.766
+387 days average leverage is  2.702
+392 days average leverage is  2.530
+397 days average leverage is  2.995
+402 days average leverage is  2.523
+407 days average leverage is  2.891
+412 days average leverage is  2.214
+417 days average leverage is  2.634
+422 days average leverage is  2.782
+427 days average leverage is  3.074
+432 days average leverage is  2.561
+437 days average leverage is  2.533
+442 days average leverage is  4.225
+447 days average leverage is  2.540
+452 days average leverage is  2.797
+457 days average leverage is  2.704
+462 days average leverage is  2.925
+467 days average leverage is  2.653
+472 days average leverage is  3.129
+477 days average leverage is  2.848
+482 days average leverage is  2.877
+487 days average leverage is  2.900
+492 days average leverage is  2.935
+497 days average leverage is  2.951
+502 days average leverage is  2.975
+507 days average leverage is  3.039
+512 days average leverage is  3.013
+517 days average leverage is  2.979
+522 days average leverage is  3.001
+527 days average leverage is  3.022
+532 days average leverage is  3.009
+537 days average leverage is  3.124
+542 days average leverage is  2.968
+547 days average leverage is  3.046
+552 days average leverage is  3.064
+557 days average leverage is  3.078
+562 days average leverage is  3.086
+567 days average leverage is  3.094
+572 days average leverage is  3.101
+577 days average leverage is  3.106
+582 days average leverage is  3.111
+587 days average leverage is  3.115
+592 days average leverage is  3.120
+597 days average leverage is  3.125
+602 days average leverage is  3.130
+607 days average leverage is  3.134
+612 days average leverage is  3.141
+617 days average leverage is  3.150
+622 days average leverage is  3.159
+627 days average leverage is  3.169
+632 days average leverage is  3.179
+637 days average leverage is  3.188
+642 days average leverage is  3.197
+647 days average leverage is  3.206
+652 days average leverage is  3.215
+657 days average leverage is  3.223
+662 days average leverage is  3.231
+667 days average leverage is  3.239
+672 days average leverage is  3.246
+677 days average leverage is  3.254
+682 days average leverage is  3.261
+687 days average leverage is  3.268
+692 days average leverage is  3.275
+697 days average leverage is  3.281
+702 days average leverage is  3.288
+707 days average leverage is  3.295
+712 days average leverage is  3.302
+717 days average leverage is  3.309
+722 days average leverage is  3.315
+727 days average leverage is  3.322
+732 days average leverage is  3.329
+737 days average leverage is  3.336
+742 days average leverage is  3.343
+747 days average leverage is  3.349
+752 days average leverage is  3.355
+757 days average leverage is  3.362
+762 days average leverage is  3.369
+767 days average leverage is  3.378
+772 days average leverage is  3.386
+777 days average leverage is  3.395
+782 days average leverage is  3.404
+787 days average leverage is  3.413
+792 days average leverage is  3.421
+797 days average leverage is  3.430
+802 days average leverage is  3.438
+807 days average leverage is  3.445
+812 days average leverage is  3.452
+817 days average leverage is  3.460
+822 days average leverage is  3.468
+827 days average leverage is  3.477
+832 days average leverage is  3.485
+837 days average leverage is  3.494
+842 days average leverage is  3.504
+847 days average leverage is  3.513
+852 days average leverage is  3.523
+857 days average leverage is  3.533
+862 days average leverage is  3.545
+867 days average leverage is  3.556
+872 days average leverage is  3.568
+877 days average leverage is  3.580
+882 days average leverage is  3.593
+887 days average leverage is  3.605
+892 days average leverage is  3.618
+897 days average leverage is  3.630
+902 days average leverage is  3.642
+907 days average leverage is  3.653
+912 days average leverage is  3.664
+917 days average leverage is  3.674
+922 days average leverage is  3.685
+927 days average leverage is  3.697
+932 days average leverage is  3.709
+937 days average leverage is  3.722
+942 days average leverage is  3.736
+947 days average leverage is  3.750
+952 days average leverage is  3.764
+957 days average leverage is  3.777
+962 days average leverage is  3.791
+967 days average leverage is  3.807
+972 days average leverage is  3.823
+977 days average leverage is  3.841
+982 days average leverage is  3.858
+987 days average leverage is  3.874
+992 days average leverage is  3.891
+997 days average leverage is  3.907
+1002 days average leverage is  3.923
+1007 days average leverage is  3.939
+1012 days average leverage is  3.955
+1017 days average leverage is  3.971
+1022 days average leverage is  3.987
+1027 days average leverage is  4.004
+1032 days average leverage is  4.021
+1037 days average leverage is  4.037
+1042 days average leverage is  4.053
+1047 days average leverage is  4.071
+1052 days average leverage is  4.089
+1057 days average leverage is  4.107
+1062 days average leverage is  4.125
+1067 days average leverage is  4.143
+1072 days average leverage is  4.162
+1077 days average leverage is  4.181
+
+
