@@ -32,7 +32,22 @@ const processRaw = (rawData) => {
 }
 
 
+function findSuitableRange(data1, data2){
+    return {
+        max: new Date(Math.min(data1[data1.length-1].Date, data2[data2.length-1].Date)),
+        min: new Date(Math.max(data1[0].Date, data2[0].Date))
+    }
+}
+
+function filterByRange(data, max, min){
+    return data.filter(e => {
+        return e.Date >= min && e.Date <= max;
+    })
+}
+
 module.exports = {
     getFileContents,
-    processRaw
+    processRaw,
+    findSuitableRange,
+    filterByRange
 };

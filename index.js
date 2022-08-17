@@ -76,26 +76,17 @@ function gapCompare(data1, data2, gap){
     console.log(gap + " days average leverage is ", (mult_sum/mult_count).toFixed(3))
 }
 
-function findSuitableRange(data1, data2){
-    return {
-        max: new Date(Math.min(data1[data1.length-1].Date, data2[data2.length-1].Date)),
-        min: new Date(Math.max(data1[0].Date, data2[0].Date))
-    }
-}
 
-function filterByRange(data, max, min){
-    return data.filter(e => {
-        return e.Date >= min && e.Date <= max;
-    })
-}
+
+
 
 async function main(){
     let data1 = await util.getFileContents(path.resolve(".", "data", "qqq.csv"));
     let data2 = await util.getFileContents(path.resolve(".", "data","tqqq.csv"));
 
-    const range = findSuitableRange(data1, data2);
-    data1 = filterByRange(data1, range.max, range.min);
-    data2 = filterByRange(data2, range.max, range.min);
+    const range = util.findSuitableRange(data1, data2);
+    data1 = util.filterByRange(data1, range.max, range.min);
+    data2 = util.filterByRange(data2, range.max, range.min);
 
     //  gapCompare(data1, data2, 0);
     // gapCompare(data1, data2, 100);
