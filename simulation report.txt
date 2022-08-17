@@ -1,0 +1,51 @@
+结论1：balancing频率 30天以内都差不多，60天太慢了
+结论2: ratio高了，max increase就好了。但最终和max的直接的差值也大。
+结论3: 长期买，只要只有tqqq收益。必然比单独qqq
+结论4: 运气不好，的确可能出现全仓tqqq和全仓qqq差别不大的情况
+
+
+
+-------------------------------------
+模拟期间 Wed Dec 28 2016 - Fri Aug 12 2022 
+Wed Dec 28 2016 - Fri Aug 12 2022 
+tqqq_ratio:0.000 balancing_interval:30  final:308.391%  max_increase:399.028%  只买qqq
+
+tqqq_ratio:0.300 balancing_interval:5  final:471.594%  max_increase:716.216%
+tqqq_ratio:0.400 balancing_interval:5  final:523.279%  max_increase:846.966%
+tqqq_ratio:0.500 balancing_interval:5  final:573.386%  max_increase:990.767%
+tqqq_ratio:0.600 balancing_interval:5  final:620.557%  max_increase:1146.992%
+tqqq_ratio:0.700 balancing_interval:5  final:663.378%  max_increase:1314.493%
+
+tqqq_ratio:0.300 balancing_interval:10  final:461.025%  max_increase:724.187%
+tqqq_ratio:0.400 balancing_interval:10  final:511.158%  max_increase:858.242%
+tqqq_ratio:0.500 balancing_interval:10  final:558.744%  max_increase:1005.109%
+tqqq_ratio:0.600 balancing_interval:10  final:602.146%  max_increase:1163.610%
+tqqq_ratio:0.700 balancing_interval:10  final:639.657%  max_increase:1331.801%
+
+tqqq_ratio:0.300 balancing_interval:30  final:461.443%  max_increase:722.577%
+tqqq_ratio:0.400 balancing_interval:30  final:512.653%  max_increase:857.746%
+tqqq_ratio:0.500 balancing_interval:30  final:561.394%  max_increase:1005.951%
+tqqq_ratio:0.600 balancing_interval:30  final:605.737%  max_increase:1165.645%
+tqqq_ratio:0.700 balancing_interval:30  final:643.530%  max_increase:1334.153%
+
+tqqq_ratio:1.000 balancing_interval:30  final:699.595%  max_increase:1858.030% 只买tqqq
+-------------------------------
+2022 经历2018,2020,2022 三轮熊市，上来就是2018熊市
+混合qqq和tqqq策略没法有效的保证收益不丢失
+
+感觉现在怎么折腾差别都不大？
+需要timing the marker，否则会有30%以上的回测
+
+Wed Aug 01 2018 - Fri Aug 12 
+tqqq_ratio:0.000 balancing_interval:10  final:169.325%  max_increase:225.560%
+
+tqqq_ratio:0.300 balancing_interval:10  final:215.777%  max_increase:357.250%
+tqqq_ratio:0.400 balancing_interval:10  final:226.894%  max_increase:405.066%
+tqqq_ratio:0.500 balancing_interval:10  final:235.085%  max_increase:453.777%
+tqqq_ratio:0.600 balancing_interval:10  final:239.980%  max_increase:502.522%
+tqqq_ratio:0.700 balancing_interval:10  final:241.282%  max_increase:550.284%
+
+tqqq_ratio:1.000 balancing_interval:10  final:222.613%  max_increase:677.182%
+
+-------------------------------
+
