@@ -5,24 +5,24 @@ const assert = require('assert');
 const path = require('path');
 const util = require("./util");
 
-function doSimulation(data1, data2, doBalancing, tqqq_ratio, begin, balancing_interval,init_total, month_dca){
+function doSimulation(data_qqq, data_tqqq, doBalancing, tqqq_ratio, begin, balancing_interval,init_total, month_dca){
     const qqq_ratio = 1 - tqqq_ratio;
 
     // let monthly_added = 1; // the income added monthly
     let qqq_value = init_total * qqq_ratio;
     let tqqq_value = init_total * tqqq_ratio;
 
-    let qqq_last_price = data1[begin].Open;
-    let tqqq_last_price = data2[begin].Open;
+    let qqq_last_price = data_qqq[begin].Open;
+    let tqqq_last_price = data_tqqq[begin].Open;
     
     // console.log(`total:${(qqq_value+tqqq_value).toFixed(3)} qqq:${qqq_value.toFixed(3)}  tqqq:${tqqq_value.toFixed(3)}`)
     let max_increase = 0;
     
 
-    for(let ii = (begin + balancing_interval); ii < data1.length; ii=balancing_interval+ii){
+    for(let ii = (begin + balancing_interval); ii < data_qqq.length; ii=balancing_interval+ii){
     // for(let ii = 5; ii < 200; ii=10+ii){
-        let qqq_price = data1[ii].Open;
-        let tqqq_price = data2[ii].Open;
+        let qqq_price = data_qqq[ii].Open;
+        let tqqq_price = data_tqqq[ii].Open;
 
         let qqq_change = qqq_price/qqq_last_price;
         let tqqq_change = tqqq_price/tqqq_last_price;
@@ -45,10 +45,10 @@ function doSimulation(data1, data2, doBalancing, tqqq_ratio, begin, balancing_in
         max_increase = Math.max(max_increase, percent);
        
 
-        // console.log(`${data1[ii].Date.toDateString()} total:${(total).toFixed(3)} ${((total-init_total)/init_total*100).toFixed(2)}%  qqq:${qqq_value.toFixed(3)}  tqqq:${tqqq_value.toFixed(3)}`)
-        // console.log(`${data1[ii].Date.toDateString()} ${((total-init_total)/init_total*100).toFixed(2)}%  qqq:${qqq_value.toFixed(3)}  tqqq:${tqqq_value.toFixed(3)}`)
+        // console.log(`${data_qqq[ii].Date.toDateString()} total:${(total).toFixed(3)} ${((total-init_total)/init_total*100).toFixed(2)}%  qqq:${qqq_value.toFixed(3)}  tqqq:${tqqq_value.toFixed(3)}`)
+        // console.log(`${data_qqq[ii].Date.toDateString()} ${((total-init_total)/init_total*100).toFixed(2)}%  qqq:${qqq_value.toFixed(3)}  tqqq:${tqqq_value.toFixed(3)}`)
         // console.log(" ");
-        // console.log(`${data1[ii].Date.toDateString()} total:${((total-init_total)/init_total*100).toFixed(2)}%`)
+        // console.log(`${data_qqq[ii].Date.toDateString()} total:${((total-init_total)/init_total*100).toFixed(2)}%`)
         // console.log(`qqq:${qqq_value.toFixed(3)}  tqqq:${tqqq_value.toFixed(3)}`)
         
         let new_added = (balancing_interval/30) * month_dca;
@@ -72,28 +72,41 @@ function doSimulation(data1, data2, doBalancing, tqqq_ratio, begin, balancing_in
 }
 
 async function main(){
-    let data1 = await util.getFileContents(path.resolve(".", "data", "qqq.csv"));
-    let data2 = await util.getFileContents(path.resolve(".", "data","tqqq.csv"));
+    let data_qqq = await util.getFileContents(path.resolve(".", "data", "voo.csv"));
+    let data_tqqq = await util.getFileContents(path.resolve(".", "data","tqqq.csv"));
 
-    const range = util.findSuitableRange(data1, data2);
-    data1 = util.filterByRange(data1, range.max, range.min);
-    data2 = util.filterByRange(data2, range.max, range.min);
+    const range = util.findSuitableRange(data_qqq, data_tqqq);
+    data_qqq = util.filterByRange(data_qqq, range.max, range.min);
+    data_tqqq = util.filterByRange(data_tqqq, range.max, range.min);
+
+    //测试现金平衡策略
+    const MAKE_QQQ_AS_CASH = false;
+    if (MAKE_QQQ_AS_CASH){
+        data_qqq.forEach(e => {
+            e["Close/Last"] = 1;
+            e["High"] = 1;
+            e["Low"] = 1;
+            e["Open"] = 1;
+            e["percent"] = 0;
+            e["Volume"] = 1;
+        })
+    }
 
     const month_dca = 1; //每月定投金额
     // const trial_intervals = [5, 10, 30];
     const trial_intervals = [10];
     const begin = 1500;  // begin arr index
 
-    const last = data1[data1.length-1];
-    console.log(`${data1[begin].Date.toDateString()} - ${last.Date.toDateString()} `);
+    const last = data_qqq[data_qqq.length-1];
+    console.log(`${data_qqq[begin].Date.toDateString()} - ${last.Date.toDateString()} `);
 
-    doSimulation(data1, data2, doBalancing=false, tqqq_ratio=0, begin, balancing_interval=10, init_total=50, month_dca)
+    doSimulation(data_qqq, data_tqqq, doBalancing=false, tqqq_ratio=0, begin, balancing_interval=10, init_total=50, month_dca)
     console.log("");
 
     trial_intervals.forEach(balancing_interval => {
         for(let ii = 3; ii < 8; ii++){
             const tqqq_ratio = ii * 0.1;
-            doSimulation(data1, data2, doBalancing=true, tqqq_ratio, begin, balancing_interval, init_total=50, month_dca)
+            doSimulation(data_qqq, data_tqqq, doBalancing=true, tqqq_ratio, begin, balancing_interval, init_total=50, month_dca)
 
         }
         console.log("");
@@ -101,7 +114,7 @@ async function main(){
 
     //结论1： balancing频率 30天以内都差不多，60天太慢了
 
-    doSimulation(data1, data2, doBalancing=false, tqqq_ratio=1, begin, balancing_interval=10, init_total=50, month_dca)
+    doSimulation(data_qqq, data_tqqq, doBalancing=false, tqqq_ratio=1, begin, balancing_interval=10, init_total=50, month_dca)
     console.log("");
 
     console.log("-------------------------------");
