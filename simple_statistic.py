@@ -8,14 +8,17 @@ def calculate_change(begin_row, end_row):
 
 df = pd.read_csv('data/1971年开始的纳斯达克^IXIC.csv', parse_dates=["Date"])
 
-print(df.shape)
+begin_year = df.iloc[0]["Date"].year
+end_year =  df.iloc[-1]["Date"].year
+
+# print(df.shape)
 
 # float(df[0:1]["Open"])
 # df[df['Date'].dt.year == 2001]
 
 def calculate_month_11_12():
     output_data = []
-    for year in range(1971, 2022):
+    for year in range(begin_year, end_year):
         # df[df[Date] == year + "-11-01"]
         year_df = df[df['Date'].dt.year == year]
 
@@ -49,3 +52,32 @@ def calculate_month_11_12():
 
     output_df = pd.DataFrame.from_dict(output_data)
     output_df.to_excel("简易统计.xlsx", index=False)
+
+
+def do_week_statistic():
+    output_data = []
+    for year in range(begin_year, end_year):
+        year_df = df[df['Date'].dt.year == year]
+        for month in range(1, 12+1):
+            try:
+                month_df = year_df[year_df['Date'].dt.month == month]
+
+                first_day = month_df.iloc[0]
+                last_day = month_df.iloc[-1]
+
+                change_month =  calculate_change(first_day, last_day)
+
+                output_data.append({
+                    "date": first_day["Date"],
+                    "月度变化": round(change_month * 100, 2),
+                    "月初价格": first_day["Open"],
+                    "月尾价格": last_day["Close"]
+                })
+            except Exception as e:
+                pass
+
+    output_df = pd.DataFrame.from_dict(output_data)
+    output_df.to_excel("月度简易统计.xlsx", index=False)
+
+
+do_week_statistic()
