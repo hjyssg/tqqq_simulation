@@ -1,9 +1,12 @@
-select ts, json_extract(content, '$.title') from news_data_table
-where json_extract(content, '$.title') like '%美股%'
+with  Temp_Table AS (
+    select *, json_extract(content, '$.title') as title, 
+    json_extract(content, '$.url') as url  
+    from news_data_table WHERE ts >= '2021/05/01 00:00:00' ) 
+
+
+select * FROM Temp_Table
+-- where content like '%大空头%'
 order by ts
 limit 1000
 
 
-SELECT ts, json_extract(content, '$.title') FROM news_data_table WHERE ts >= '2020-01-01 00:00:00' 
-AND ts <='2021-01-01 00:00:00' 
-order by ts
