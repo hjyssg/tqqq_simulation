@@ -50,10 +50,18 @@ df_yearly_changes = pd.DataFrame(yearly_changes.items(), columns=['Year', 'Yearl
 
 # 合并两个DataFrame
 merged_df = pd.merge(df_top5_changes, df_yearly_changes, on='Year')
-
 print(merged_df)
 
 
-negative_top5_changes = merged_df[merged_df['Top5_Changes'] < 0]
 
-print(negative_top5_changes)
+correlation = merged_df['Top5_Changes'].corr(merged_df['Yearly_Changes'])
+print(f"整体而言, Top5_Changes 和 Yearly_Changes 的相关系数为: {correlation}")
+
+negative_top5_changes = merged_df[merged_df['Top5_Changes'] < 0]
+# print(negative_top5_changes)
+correlation = negative_top5_changes['Top5_Changes'].corr(negative_top5_changes['Yearly_Changes'])
+print(f"开门黑的时候, Top5_Changes 和 Yearly_Changes 的相关系数为: {correlation}")
+
+positive_top5_changes = merged_df[merged_df['Top5_Changes'] > 0]
+correlation = positive_top5_changes['Top5_Changes'].corr(positive_top5_changes['Yearly_Changes'])
+print(f"开门红的时候,Top5_Changes 和 Yearly_Changes 的相关系数为: {correlation}")
