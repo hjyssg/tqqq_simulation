@@ -1,7 +1,7 @@
 import pandas as pd
 
 # 读取CSV文件（假设文件路径为 file_path）
-file_path = '../data/1971年开始的纳斯达克^IXIC.csv'  # 替换为你的CSV文件路径
+file_path = '../data/1985年开始的纳斯达克100^NDX.csv'  # 替换为你的CSV文件路径
 data = pd.read_csv(file_path)
 
 # 将 'Date' 列转换为日期时间类型

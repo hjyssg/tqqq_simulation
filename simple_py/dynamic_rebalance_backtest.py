@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 
+# 回测混合voo和tqqq的策略
+
 current_file_path = os.path.abspath(__file__)
 parent_folder_path = os.path.dirname(os.path.dirname(current_file_path))
 
