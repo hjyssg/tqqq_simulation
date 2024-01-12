@@ -7,6 +7,14 @@ df = pd.read_csv('../data/1985年开始的纳斯达克100^NDX.csv')
 # 将Date列转换为日期格式
 df['Date'] = pd.to_datetime(df['Date'])
 
+
+# # 添加新列，表示每个日期对应的年份
+# df['Year'] = df['Date'].dt.year
+# # 筛选出美国总统大选年份的数据（剔除2008和2000）
+# election_years = [year for year in range(1984, 2024, 4) if year not in [2000, 2008]] 
+# df = df[df['Year'].isin(election_years)]
+
+
 # 计算每一天的涨跌百分比（考虑开盘价）
 df['Daily_Return'] = (df['Close'] - df['Open']) / df['Open'] * 100
 
