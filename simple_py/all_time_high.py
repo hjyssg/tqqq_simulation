@@ -2,8 +2,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os
 
-# 在股票到达all time high后。
-# 1个月的股票平均表现百分比。
+# 在股票到达all time high后的股票平均表现百分比。
 
 # 读取CSV文件
 script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -51,14 +50,14 @@ for index, row in df.iterrows():
 
 
 print(result_df['PerformancePercentage'].describe())
-# count    406.000000
-# mean       3.284898
-# std       10.224840
-# min      -38.994902
-# 25%       -0.577869
-# 50%        3.429859
-# 75%        8.069991
-# max       40.229214
+# count    409.000000
+# mean      10.534450
+# std       17.012741
+# min      -32.042729
+# 25%       -0.613834
+# 50%       11.317107
+# 75%       18.897681
+# max       80.832157
 
 import matplotlib.pyplot as plt
 import seaborn as sns
