@@ -1,8 +1,11 @@
 # 计算出一个每年每天的平均走势
 import pandas as pd
+import os
 
 # 读取CSV文件
-df = pd.read_csv('../data/1985年开始的纳斯达克100^NDX.csv')
+script_dir = os.path.dirname(os.path.realpath(__file__))
+file_path = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
+df = pd.read_csv(file_path)
 
 # 将Date列转换为日期格式
 df['Date'] = pd.to_datetime(df['Date'])
@@ -16,7 +19,8 @@ df['Date'] = pd.to_datetime(df['Date'])
 
 
 # 计算每一天的涨跌百分比（考虑开盘价）
-df['Daily_Return'] = (df['Close'] - df['Open']) / df['Open'] * 100
+# df['Daily_Return'] = (df['Close'] - df['Open']) / df['Open'] * 100
+df['Daily_Return'] = df['Close'].pct_change() * 100
 
 # 创建新的列，表示每个日期对应的月日
 df['Month_Day'] = df['Date'].dt.strftime('%m-%d')
