@@ -33,6 +33,52 @@ def visualize_returns(monthly_returns_1, monthly_returns_2):
     plt.grid(True)
     plt.show()
 
+
+import numpy as np
+from scipy.stats import linregress
+import matplotlib.pyplot as plt
+
+def compare_and_regress(monthly_returns_1, monthly_returns_2):
+    # Drop NaN values from both Series to ensure clean data
+    monthly_returns_1 = monthly_returns_1.dropna()
+    monthly_returns_2 = monthly_returns_2.dropna()
+
+    # Ensure both Series have the same dates after dropping NaNs
+    monthly_returns_1, monthly_returns_2 = monthly_returns_1.align(monthly_returns_2, join='inner')
+    
+    # Check if there are enough data points
+    if len(monthly_returns_1) < 2:
+        print("Insufficient data for regression analysis.")
+        return
+
+    # Perform linear regression
+    slope, intercept, r_value, p_value, std_err = linregress(monthly_returns_1, monthly_returns_2)
+
+    # Perform linear regression
+    slope, intercept, r_value, p_value, std_err = linregress(monthly_returns_1.values, monthly_returns_2.values)
+
+    print(slope, intercept, r_value, p_value, std_err)
+    
+    # Create scatter plot
+    plt.figure(figsize=(10, 6))
+    plt.scatter(monthly_returns_1.values, monthly_returns_2.values, color='green', alpha=0.5)
+    
+    # Plot regression line
+    line = slope * monthly_returns_1.values + intercept
+    plt.plot(monthly_returns_1.values, line, 'r', label=f'y={slope:.2f}x+{intercept:.2f}\nR²={r_value**2:.2f}')
+    
+    plt.title('Monthly Returns: Bitcoin vs. Nasdaq')
+    plt.xlabel('Nasdaq Monthly Returns (%)')
+    plt.ylabel('Bitcoin Monthly Returns (%)')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # Optionally, you can return the regression results if you want to use them later
+    return slope, intercept, r_value, p_value, std_err
+
+
+
 # 主函数
 def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -52,10 +98,13 @@ def main():
     monthly_returns_2 = calculate_monthly_returns(df_2)
 
     # 生成可视化结果
-    visualize_returns(monthly_returns_1, monthly_returns_2)
+    # visualize_returns(monthly_returns_1, monthly_returns_2)
+
+    compare_and_regress(monthly_returns_1, monthly_returns_2)
 
 if __name__ == "__main__":
     main()
 
 
 
+print("--------")

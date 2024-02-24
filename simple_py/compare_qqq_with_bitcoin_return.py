@@ -62,6 +62,8 @@ def main():
     df_1 = df_1[f"{year_after}":]
     df_2 = df_2[f"{year_after}":]
 
+    df_1, df_2 = df_1.align(df_2, join='inner')
+
     # 初始投资金额
     initial_investment = 10000
 
