@@ -2,10 +2,14 @@ import pandas as pd
 import os
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
+# file_path = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
+
+file_path = os.path.join(script_dir, '../data/1927年开始得^SPX.csv')
 data = pd.read_csv(file_path)
 data['Date'] = pd.to_datetime(data['Date'])
 data['Close'] = pd.to_numeric(data['Close'])
+
+data = data[data['Date'].dt.year > 1985]
 
 yearly_growth_rates = []  # 用于存储每年的涨幅
 
@@ -34,7 +38,7 @@ import seaborn as sns
 # 绘制百分比的分布图
 sns.set(style="whitegrid")
 plt.figure(figsize=(12, 6))
-sns.histplot(growth_df['Yearly Growth'], bins=30, kde=True, color='skyblue')
+sns.histplot(growth_df['Yearly Growth'], bins=100, kde=True, color='skyblue')
 plt.title('Yearly Growth Rate Distribution')
 plt.xlabel('Yearly Growth Rate (%)')
 plt.ylabel('Frequency')
@@ -43,7 +47,7 @@ plt.show()
 
 print("--------")
 
-# 年化统计
+# ndx年化统计
 # mean      17.315052
 # std       31.301710
 # min      -41.902058
@@ -65,3 +69,14 @@ print("--------")
 #     2019      40.885964
 #     2020      46.420797
 #     2023      52.430600
+
+# -------------------------------------------------------
+# s&p 500
+# count    39.000000
+# mean      9.731287
+# std      16.520449
+# min     -38.469450
+# 25%       1.012956
+# 50%      12.391742
+# 75%      23.637823
+# max      34.128178
