@@ -11,16 +11,16 @@ df = pd.read_csv(file_path)
 df['Date'] = pd.to_datetime(df['Date'])
 
 
-# # 添加新列，表示每个日期对应的年份
-# df['Year'] = df['Date'].dt.year
-# # 筛选出美国总统大选年份的数据（剔除2008和2000）
-# election_years = [year for year in range(1984, 2024, 4) if year not in [2000, 2008]] 
-# df = df[df['Year'].isin(election_years)]
-
+# 添加新列，表示每个日期对应的年份
+df['Year'] = df['Date'].dt.year
 
 # 计算每一天的涨跌百分比（考虑开盘价）
 # df['Daily_Return'] = (df['Close'] - df['Open']) / df['Open'] * 100
 df['Daily_Return'] = df['Close'].pct_change() * 100
+
+# 筛选出美国总统大选年份的数据（剔除2008和2000）
+election_years = [year for year in range(1984, 2024, 4) if year not in [2000, 2008, 2020]] 
+df = df[df['Year'].isin(election_years)]
 
 # 创建新的列，表示每个日期对应的月日
 df['Month_Day'] = df['Date'].dt.strftime('%m-%d')
@@ -62,3 +62,5 @@ plt.xlabel('Date')
 plt.ylabel('Stock Price')
 plt.legend()
 plt.show()
+
+print("---")

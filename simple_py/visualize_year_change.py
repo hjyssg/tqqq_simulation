@@ -9,7 +9,8 @@ data = pd.read_csv(file_path)
 data['Date'] = pd.to_datetime(data['Date'])
 data['Close'] = pd.to_numeric(data['Close'])
 
-data = data[data['Date'].dt.year > 1985]
+# 特定年份
+# data = data[data['Date'].dt.year > 1985]
 
 yearly_growth_rates = []  # 用于存储每年的涨幅
 
