@@ -2,20 +2,6 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 
-# Year	Bitcoin Performance
-# 2013	5516%
-# 2014	-58%
-# 2015	37%
-# 2016	119%
-# 2017	1300%
-# 2018	-73%
-# 2019	92%
-# 2020	302%
-# 2021	58%
-# 2022	-65%
-# 2023	156%
-# 2013和2017导致图画出来基本就没意义，qqq全是平的
-year_after = 2018
 
 # 读取数据
 def read_data(file_path):
@@ -40,8 +26,8 @@ def calculate_monthly_values(df, initial_investment):
 def visualize_returns(monthly_values_1, monthly_values_2):
     plt.figure(figsize=(10, 6))
     plt.plot(monthly_values_1.index, monthly_values_1.values, label='QQQ', color='blue')
-    plt.plot(monthly_values_2.index, monthly_values_2.values, label='Bitcoin', color='orange')
-    plt.title(f"Portfolio Value Comparison since {year_after}")
+    plt.plot(monthly_values_2.index, monthly_values_2.values, label='UPRO', color='orange')
+    # plt.title(f"Portfolio Value Comparison since {year_after}")
     plt.xlabel('Date')
     plt.ylabel('Portfolio Value ($)')
     plt.legend()
@@ -52,15 +38,11 @@ def visualize_returns(monthly_values_1, monthly_values_2):
 def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
     file_path_1 = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
-    file_path_2 = os.path.join(script_dir, '../data/BTC-USD.csv')
+    file_path_2 = os.path.join(script_dir, '../data/upro.csv')
 
     # 读取数据
     df_1 = read_data(file_path_1)
     df_2 = read_data(file_path_2)
-
-    # 选择2015年及以后的数据
-    df_1 = df_1[f"{year_after}":]
-    df_2 = df_2[f"{year_after}":]
 
     df_1, df_2 = df_1.align(df_2, join='inner')
 

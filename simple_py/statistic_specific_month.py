@@ -11,13 +11,16 @@ data = pd.read_csv(file_path)
 data['Date'] = pd.to_datetime(data['Date'])
 
 # 筛选特定月份的数据
-target_month = 3  # 3月
+target_month = 4  # 3月
 data['Month'] = data['Date'].dt.month
 monthly_data = data[data['Month'] == target_month]
 
 # 计算每年该月的百分比变化
 monthly_data['Year'] = monthly_data['Date'].dt.year
 monthly_changes = monthly_data.groupby('Year').apply(lambda x: (x['Close'].iloc[-1] - x['Open'].iloc[0]) / x['Open'].iloc[0] * 100)
+
+# print(monthly_changes.head(10))
+print(monthly_changes.describe())
 
 # 画出直方图
 plt.figure(figsize=(10, 6))
@@ -27,3 +30,5 @@ plt.xlabel('Percentage Change')
 plt.ylabel('Frequency')
 plt.grid(False)
 plt.show()
+
+print("--")
