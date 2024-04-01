@@ -6,11 +6,14 @@ def calculate_cagr(file_path):
     data = pd.read_csv(file_path)
     # 将 'Date' 列转换为日期时间类型
     data['Date'] = pd.to_datetime(data['Date'])
+
+    # data = data[data['Date'].dt.year > 1985]
+
     # 确保数据是按日期排序的
     data.sort_values('Date', inplace=True)
     # 计算投资期初和期末的价格
-    initial_price = data.iloc[0]['Close']
-    final_price = data.iloc[-1]['Close']
+    initial_price = data.iloc[0]['Open']
+    final_price = data.iloc[-1]['Open']
     # 计算总的投资年数
     years = (data.iloc[-1]['Date'] - data.iloc[0]['Date']).days / 365.25
     # 计算CAGR
