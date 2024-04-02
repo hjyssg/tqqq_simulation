@@ -7,15 +7,17 @@ def calculate_cagr(file_path):
     # 将 'Date' 列转换为日期时间类型
     data['Date'] = pd.to_datetime(data['Date'])
 
-    # data = data[data['Date'].dt.year > 1985]
+    data = data[data['Date'].dt.year > 2000]
     # data = data[data['Date'].dt.year > 2009]
 
+    # 过滤掉除了日期列以外所有值都为NaN或Null的行
+    data = data.dropna(subset=data.columns[data.columns != 'Date'], how='all')
 
     # 确保数据是按日期排序的
     data.sort_values('Date', inplace=True)
     # 计算投资期初和期末的价格
-    initial_price = data.iloc[0]['Open']
-    final_price = data.iloc[-1]['Open']
+    initial_price = data.iloc[0]['Open'] if not pd.isnull(data.iloc[0]['Open']) else data.iloc[0]['Close']
+    final_price = data.iloc[-1]['Open'] if not pd.isnull(data.iloc[-1]['Open']) else data.iloc[-1]['Close']
     # 计算总的投资年数
     years = (data.iloc[-1]['Date'] - data.iloc[0]['Date']).days / 365.25
     # 计算CAGR
@@ -56,6 +58,13 @@ def process_files(directory):
     plt.barh(files, [cagr * 100 for cagr in cagrs], color='skyblue')
     plt.xlabel('平均年回报率 (%)')
     plt.title('平均年回报率')
+
+    bars = plt.barh(files, [cagr * 100 for cagr in cagrs], color='skyblue')
+    # 为每个条形图添加文本标签
+    for bar in bars:
+        plt.text(bar.get_width(), bar.get_y() + bar.get_height() / 2, f"{bar.get_width():.2f}%", va='center')
+
+
     # 添加网格线
     plt.grid(axis='x', linestyle='--', alpha=0.6)
     plt.tight_layout()
@@ -67,18 +76,22 @@ file_path = os.path.join(script_dir, '../data')
 process_files(file_path)
 
 
-# ^SPX.csv: 开始日期: 1986-01-02, 结束日期: 2024-01-24, 平均年回报率: 8.60%
-# 纳斯达克^IXIC.csv: 开始日期: 1986-01-02, 结束日期: 2023-12-21, 平均年回报率: 10.61%
-# 纳斯达克100^NDX.csv: 开始日期: 1986-01-02, 结束日期: 2024-01-08, 平均年回报率: 13.51%
-# 罗素 ^RUT.csv: 开始日期: 1987-09-10, 结束日期: 2022-10-21, 平均年回报率: 6.84%
-# AAPL.csv: 开始日期: 1986-01-02, 结束日期: 2022-10-27, 平均年回报率: 21.99%
+# AAPL.csv: 开始日期: 2001-01-02, 结束日期: 2024-04-01, 平均年回报率: 32.09%
 # BTC-USD.csv: 开始日期: 2014-09-17, 结束日期: 2024-02-22, 平均年回报率: 64.81%
-# IBM.csv: 开始日期: 1986-01-02, 结束日期: 2024-01-19, 平均年回报率: 4.10%
-# qyld.csv: 开始日期: 2013-12-12, 结束日期: 2022-08-12, 平均年回报率: -3.43%
-# soxl.csv: 开始日期: 2012-08-15, 结束日期: 2022-08-12, 平均年回报率: 44.61%
+# IBM.csv: 开始日期: 2001-01-02, 结束日期: 2024-01-19, 平均年回报率: 3.30%
+# MSFT.csv: 开始日期: 2001-01-02, 结束日期: 2024-03-28, 平均年回报率: 13.53%
+# NVDA.csv: 开始日期: 2001-01-02, 结束日期: 2024-04-01, 平均年回报率: 32.19%
+# QLD.csv: 开始日期: 2008-01-02, 结束日期: 2024-03-28, 平均年回报率: 22.86%
+# qyld.csv: 开始日期: 2013-12-12, 结束日期: 2024-04-01, 平均年回报率: -3.19%
+# soxl.csv: 开始日期: 2010-03-11, 结束日期: 2024-04-01, 平均年回报率: 35.65%
 # SOXX.csv: 开始日期: 2001-07-13, 结束日期: 2024-03-28, 平均年回报率: 10.35%
 # SPYD.csv: 开始日期: 2015-10-22, 结束日期: 2024-03-28, 平均年回报率: 3.53%
-# sqqq.csv: 开始日期: 2012-08-15, 结束日期: 2022-08-12, 平均年回报率: -52.80%
-# tqqq.csv: 开始日期: 2010-02-11, 结束日期: 2023-12-22, 平均年回报率: 41.63%
+# sqqq.csv: 开始日期: 2010-02-11, 结束日期: 2024-04-01, 平均年回报率: -53.45%
+# tqqq.csv: 开始日期: 2010-02-11, 结束日期: 2024-04-01, 平均年回报率: 42.69%
 # upro.csv: 开始日期: 2009-06-25, 结束日期: 2024-03-26, 平均年回报率: 32.30%
 # VXUS.csv: 开始日期: 2011-01-28, 结束日期: 2024-03-28, 平均年回报率: 1.41%
+# YINN.csv: 开始日期: 2009-12-03, 结束日期: 2024-03-28, 平均年回报率: -23.14%
+# ^N225.csv: 开始日期: 2001-01-04, 结束日期: 2024-04-02, 平均年回报率: 4.64%
+# ^NDX.csv: 开始日期: 2001-01-02, 结束日期: 2024-04-01, 平均年回报率: 9.24%
+# ^RUT.csv: 开始日期: 2001-01-02, 结束日期: 2024-04-01, 平均年回报率: 6.58%
+# ^SPX.csv: 开始日期: 2001-01-02, 结束日期: 2024-04-01, 平均年回报率: 6.13%
