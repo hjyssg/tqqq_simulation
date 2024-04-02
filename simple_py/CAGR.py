@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-begin_year = 2014
+begin_year = 1980
 
 def calculate_cagr(file_path):
     # 读取CSV文件
@@ -36,6 +36,8 @@ def process_files(directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith(".csv"):
+                # if not file.startswith("^"): 
+                #     continue
                 file_path = os.path.join(root, file)
                 try:
                     cagr, start_date, end_date = calculate_cagr(file_path)
