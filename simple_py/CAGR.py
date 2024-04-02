@@ -1,13 +1,15 @@
 import pandas as pd
 import os
 
+begin_year = 2000
+
 def calculate_cagr(file_path):
     # 读取CSV文件
     data = pd.read_csv(file_path)
     # 将 'Date' 列转换为日期时间类型
     data['Date'] = pd.to_datetime(data['Date'])
 
-    data = data[data['Date'].dt.year > 2000]
+    data = data[data['Date'].dt.year > begin_year]
     # data = data[data['Date'].dt.year > 2009]
 
     # 过滤掉除了日期列以外所有值都为NaN或Null的行
@@ -16,12 +18,13 @@ def calculate_cagr(file_path):
     # 确保数据是按日期排序的
     data.sort_values('Date', inplace=True)
     # 计算投资期初和期末的价格
-    initial_price = data.iloc[0]['Open'] if not pd.isnull(data.iloc[0]['Open']) else data.iloc[0]['Close']
-    final_price = data.iloc[-1]['Open'] if not pd.isnull(data.iloc[-1]['Open']) else data.iloc[-1]['Close']
+    initial_price = data.iloc[0]['Open'] if not pd.isnull(data.iloc[0]['Open']) and data.iloc[0]['Open'] != 0  else data.iloc[0]['Close']
+    final_price = data.iloc[-1]['Open'] if not pd.isnull(data.iloc[-1]['Open']) and data.iloc[-1]['Open'] != 0 else data.iloc[-1]['Close']
     # 计算总的投资年数
     years = (data.iloc[-1]['Date'] - data.iloc[0]['Date']).days / 365.25
     # 计算CAGR
     CAGR = (final_price / initial_price) ** (1 / years) - 1
+
 
     start_date = data.iloc[0]['Date']
     end_date = data.iloc[-1]['Date']
@@ -57,7 +60,7 @@ def process_files(directory):
     plt.figure(figsize=(10, 8))
     plt.barh(files, [cagr * 100 for cagr in cagrs], color='skyblue')
     plt.xlabel('平均年回报率 (%)')
-    plt.title('平均年回报率')
+    plt.title(f"""{begin_year}年起的平均年回报率""")
 
     bars = plt.barh(files, [cagr * 100 for cagr in cagrs], color='skyblue')
     # 为每个条形图添加文本标签
