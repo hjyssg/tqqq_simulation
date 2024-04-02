@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-begin_year = 2000
+begin_year = 2014
 
 def calculate_cagr(file_path):
     # 读取CSV文件
@@ -9,7 +9,7 @@ def calculate_cagr(file_path):
     # 将 'Date' 列转换为日期时间类型
     data['Date'] = pd.to_datetime(data['Date'])
 
-    data = data[data['Date'].dt.year > begin_year]
+    data = data[data['Date'].dt.year >= begin_year]
     # data = data[data['Date'].dt.year > 2009]
 
     # 过滤掉除了日期列以外所有值都为NaN或Null的行
