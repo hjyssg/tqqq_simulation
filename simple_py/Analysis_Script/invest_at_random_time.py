@@ -6,7 +6,7 @@ import os
 
 # 读取CSV文件
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/^NDX.csv')
+file_path = os.path.join(script_dir, '../../data/^NDX.csv')
 df = pd.read_csv(file_path)
 
 

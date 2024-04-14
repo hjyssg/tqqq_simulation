@@ -2,9 +2,9 @@ import pandas as pd
 import os
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-# file_path = os.path.join(script_dir, '../data/^NDX.csv')
+# file_path = os.path.join(script_dir, '../../data/^NDX.csv')
 
-file_path = os.path.join(script_dir, '../data/1927年开始得^SPX.csv')
+file_path = os.path.join(script_dir, '../../data/1927年开始得^SPX.csv')
 data = pd.read_csv(file_path)
 data['Date'] = pd.to_datetime(data['Date'])
 data['Close'] = pd.to_numeric(data['Close'])

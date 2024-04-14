@@ -4,7 +4,7 @@ import os
 
 # 读取CSV文件
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/^SPX.csv')
+file_path = os.path.join(script_dir, '../../data/^SPX.csv')
 df = pd.read_csv(file_path)
 
 # 将日期列转换为datetime类型

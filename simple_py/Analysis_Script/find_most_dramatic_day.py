@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/1927年开始得^SPX.csv')
+file_path = os.path.join(script_dir, '../../data/^SPX.csv')
 df = pd.read_csv(file_path)
 
 # 将日期列转换为datetime类型

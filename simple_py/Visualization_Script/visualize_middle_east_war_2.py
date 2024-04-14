@@ -8,7 +8,7 @@ app = Dash(__name__)
 
 # Assuming CSV data has been loaded into a DataFrame
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/^SPX.csv')
+file_path = os.path.join(script_dir, '../../data/^SPX.csv')
 data = pd.read_csv(file_path)
 data['Date'] = pd.to_datetime(data['Date'])
 

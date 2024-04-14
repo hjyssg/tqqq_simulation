@@ -4,14 +4,14 @@ import os
 
 # 读取CSV文件
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/^NDX.csv')
+file_path = os.path.join(script_dir, '../../data/^NDX.csv')
 data = pd.read_csv(file_path)
 
 # 将 'Date' 列转换为日期时间类型
 data['Date'] = pd.to_datetime(data['Date'])
 
 # 筛选特定月份的数据
-target_month = 4  # 3月
+target_month = 4  
 data['Month'] = data['Date'].dt.month
 monthly_data = data[data['Month'] == target_month]
 

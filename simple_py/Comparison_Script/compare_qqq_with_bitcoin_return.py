@@ -51,8 +51,8 @@ def visualize_returns(monthly_values_1, monthly_values_2):
 # 主函数
 def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
-    file_path_1 = os.path.join(script_dir, '../data/^NDX.csv')
-    file_path_2 = os.path.join(script_dir, '../data/BTC-USD.csv')
+    file_path_1 = os.path.join(script_dir, '../../data/^NDX.csv')
+    file_path_2 = os.path.join(script_dir, '../../data/BTC-USD.csv')
 
     # 读取数据
     df_1 = read_data(file_path_1)

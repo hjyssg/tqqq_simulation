@@ -5,7 +5,7 @@
 import pandas as pd
 
 # 读取CSV文件
-file_path = '../data/1971年开始的纳斯达克^IXIC.csv'  # 替换为你的CSV文件路径
+file_path = '../../data/^NDX.csv'  # 替换为你的CSV文件路径
 
 data = pd.read_csv(file_path)
 
