@@ -1,14 +1,11 @@
 # 计算出一个每年每天的平均走势
 import pandas as pd
 import os
-
-# 读取CSV文件
-script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../../data/^NDX.csv')
-df = pd.read_csv(file_path)
-
-# 将Date列转换为日期格式
-df['Date'] = pd.to_datetime(df['Date'])
+import sys
+# 将util.py所在的目录添加到系统路径中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _util
+df = _util.load_csv_as_dataframe("^NDX.csv")
 
 
 # 添加新列，表示每个日期对应的年份

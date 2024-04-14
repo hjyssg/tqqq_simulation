@@ -1,5 +1,11 @@
 import pandas as pd
 import os
+import sys
+# 将util.py所在的目录添加到系统路径中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _util
+data = _util.load_csv_as_dataframe("^NDX.csv")
+data['Close'] = pd.to_numeric(data['Close'])
 
 # 假设文件路径（您需要根据实际情况进行修改）
 script_dir = os.path.dirname(os.path.realpath(__file__))

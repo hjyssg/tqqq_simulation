@@ -1,14 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-
-# 读取CSV文件
-script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../../data/^NDX.csv')
-data = pd.read_csv(file_path)
-
-# 将 'Date' 列转换为日期时间类型
-data['Date'] = pd.to_datetime(data['Date'])
+import sys
+# 将util.py所在的目录添加到系统路径中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _util
+data = _util.load_csv_as_dataframe("^NDX.csv")
 
 # 筛选特定月份的数据
 target_month = 4  
@@ -28,7 +25,7 @@ monthly_changes.hist(bins=20)
 plt.title('March Monthly Percentage Change Histogram')
 plt.xlabel('Percentage Change')
 plt.ylabel('Frequency')
-plt.grid(False)
+plt.grid(True)
 plt.show()
 
 print("--")

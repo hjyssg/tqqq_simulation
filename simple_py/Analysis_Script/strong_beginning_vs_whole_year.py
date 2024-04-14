@@ -1,21 +1,13 @@
 import pandas as pd
 import os
 import numpy as np
-
 # 统计年初几个月和全年表现得关系
-
-# 读取股票数据CSV文件
-script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../../data/^NDX.csv')
-# file_path = os.path.join(script_dir, '../../data/1927年开始得^SPX.csv')
-df = pd.read_csv(file_path)
-
-data = df
-
-# 1. 转换日期列，这一步已完成
-data['Date'] = pd.to_datetime(data['Date'])
-# 确保 'Close' 列是数字类型
-data['Close'] = pd.to_numeric(data['Close'])
+import os
+import sys
+# 将util.py所在的目录添加到系统路径中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _util
+data = _util.load_csv_as_dataframe("^NDX.csv")
 
 data = data[data['Date'].dt.year > 1950]
 

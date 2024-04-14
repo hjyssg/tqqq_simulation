@@ -4,12 +4,13 @@ import os
 # 找出所有40个交易日内涨幅超过10%的区间。
 # 并且统计那之后10个交易日的涨跌百分比。
 
-script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../../data/^NDX.csv')
-df = pd.read_csv(file_path)
 
-# 将 'Date' 列转换为日期时间类型
-df['Date'] = pd.to_datetime(df['Date'])
+import os
+import sys
+# 将util.py所在的目录添加到系统路径中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _util
+df = _util.load_csv_as_dataframe("^NDX.csv")
 
 # # 找出所有40个交易日内涨幅
 window_size = 40
@@ -59,6 +60,7 @@ sns.histplot(significant_returns['Future_Return'].dropna(), bins=30, kde=True, c
 plt.title(f' {days_after} days after a gain of more than {gain_pct}% within a {window_size}-day period')
 plt.xlabel('Future Return (%)')
 plt.ylabel('Frequency')
+plt.grid(True)
 plt.show()
 
 print("------------")

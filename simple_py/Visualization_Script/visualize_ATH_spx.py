@@ -1,14 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-
-# 读取CSV文件
-script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../../data/^SPX.csv')
-df = pd.read_csv(file_path)
-
-# 将日期列转换为datetime类型
-df['Date'] = pd.to_datetime(df['Date'])
+import sys
+# 将util.py所在的目录添加到系统路径中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _util
+df = _util.load_csv_as_dataframe("^SPX.csv")
 
 # 选择1970年及之后的数据
 df = df[df['Date'] >= pd.to_datetime('1970-01-01')].reset_index(drop=True)

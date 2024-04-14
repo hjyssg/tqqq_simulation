@@ -1,14 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import sys
+# 将util.py所在的目录添加到系统路径中
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import _util
+df = _util.load_csv_as_dataframe("^NDX.csv")
 
-# 读取CSV文件
-script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../../data/^NDX.csv')
-df = pd.read_csv(file_path)
-
-# 将日期列转换为datetime类型
-df['Date'] = pd.to_datetime(df['Date'])
 
 # 初始化变量，用于跟踪前最高点
 previous_high_index = 0
