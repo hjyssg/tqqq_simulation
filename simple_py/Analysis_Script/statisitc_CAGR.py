@@ -12,11 +12,6 @@ def calculate_cagr(file_path):
     data = data[data['Date'].dt.year >= begin_year]
     # data = data[data['Date'].dt.year > 2009]
 
-    # 过滤掉除了日期列以外所有值都为NaN或Null的行
-    data = data.dropna(subset=data.columns[data.columns != 'Date'], how='all')
-
-    # 确保数据是按日期排序的
-    data.sort_values('Date', inplace=True)
     # 计算投资期初和期末的价格
     initial_price = data.iloc[0]['Open'] if not pd.isnull(data.iloc[0]['Open']) and data.iloc[0]['Open'] != 0  else data.iloc[0]['Close']
     final_price = data.iloc[-1]['Open'] if not pd.isnull(data.iloc[-1]['Open']) and data.iloc[-1]['Open'] != 0 else data.iloc[-1]['Close']

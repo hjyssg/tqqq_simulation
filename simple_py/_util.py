@@ -20,6 +20,12 @@ def load_csv_as_dataframe(filename):
     # 将日期列转换为datetime类型
     df['Date'] = pd.to_datetime(df['Date'])
 
+    df.sort_values('Date', inplace=True)  # Ensure the data is sorted by date
+
+    # 过滤掉除了日期列以外所有值都为NaN或Null的行
+    df = df.dropna(subset=df.columns[df.columns != 'Date'], how='all')
+
+
     df['Close'] = pd.to_numeric(df['Close'])
     return df
 
