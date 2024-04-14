@@ -5,7 +5,6 @@
 <img src="screenshot/avg_trend.png" alt="screenshot-01" width="600"/>
 <img src="screenshot/平均年回报率.png" alt="screenshot-02" width="600"/>
 
-
 * simple_py：运用numpy做点小统计  
 * futu-news-crawler：新闻合订本  
 
@@ -24,6 +23,9 @@
 | `visualize_middle_east_war_2.py`    | 可视化中东战争时的走势                             |
 | `visualize_std.py`                  | 可视化标准差                                |
 | `visualize_year_change.py`          | 可视化年度变化                              |
+| `simple_statistic_for_each_month.py`| 每月统计                                 |
+| `statistic_by_month.py`             | 月份统计                                 |
+| `statistic_specific_month.py`       | 特定月份统计                              |
 
 
 | 文件名                                    | 描述                                     |
@@ -34,11 +36,7 @@
 | `compare_qqq_with_spy.py`               | 比较QQQ与SPY                             |
 
 
-| 文件名                                  | 描述                                    |
-|---------------------------------------|---------------------------------------|
-| `simple_statistic_for_each_month.py`  | 每月统计                                 |
-| `statistic_by_month.py`               | 月份统计                                 |
-| `statistic_specific_month.py`         | 特定月份统计                              |
+
 
 
 | 文件名                                 | 描述                                     |

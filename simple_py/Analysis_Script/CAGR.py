@@ -77,7 +77,7 @@ def process_files(directory):
 
 # 替换下面的路径为你的文件夹路径
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data')
+file_path = os.path.join(script_dir, '../../data')
 process_files(file_path)
 
 
