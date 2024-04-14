@@ -4,8 +4,7 @@ import numpy as np
 # 统计年初几个月和全年表现得关系
 import os
 import sys
-# 将util.py所在的目录添加到系统路径中
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
 import _util
 data = _util.load_csv_as_dataframe("^NDX.csv")
 

@@ -1,25 +1,13 @@
 import pandas as pd
 import os
 import sys
-# 将util.py所在的目录添加到系统路径中
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
 import _util
-data = _util.load_csv_as_dataframe("^NDX.csv")
-data['Close'] = pd.to_numeric(data['Close'])
 
-# 假设文件路径（您需要根据实际情况进行修改）
-script_dir = os.path.dirname(os.path.realpath(__file__))
-spy_file_path = os.path.join(script_dir, '../../data/1927年开始得^SPX.csv')
-qqq_file_path = os.path.join(script_dir, '../../data/^NDX.csv')
 
 # 读取数据
-spy_data = pd.read_csv(spy_file_path)
-qqq_data = pd.read_csv(qqq_file_path)
-
-
-# 将'Date'列转换为日期时间类型
-spy_data['Date'] = pd.to_datetime(spy_data['Date'])
-qqq_data['Date'] = pd.to_datetime(qqq_data['Date'])
+spy_data = _util.load_csv_as_dataframe("^SPX.csv")
+qqq_data = _util.load_csv_as_dataframe("^NDX.csv")
 
 # 设置日期列为索引
 spy_data.set_index('Date', inplace=True)
