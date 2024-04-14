@@ -3,7 +3,7 @@ import os
 
 # 帮我写个脚本，统计每年前五天的涨跌比和全年涨跌百分比的关闭。
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
+file_path = os.path.join(script_dir, '../data/^NDX.csv')
 df = pd.read_csv(file_path)
 data = pd.read_csv(file_path)
 

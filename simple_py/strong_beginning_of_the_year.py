@@ -6,7 +6,7 @@ import numpy as np
 
 # 读取股票数据CSV文件
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
+file_path = os.path.join(script_dir, '../data/^NDX.csv')
 # file_path = os.path.join(script_dir, '../data/1927年开始得^SPX.csv')
 df = pd.read_csv(file_path)
 

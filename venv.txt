@@ -9,3 +9,6 @@ python -m pip install seaborn -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 
 python -m pip install mplfinance -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+python -m pip install dash -i https://pypi.tuna.tsinghua.edu.cn/simple

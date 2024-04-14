@@ -4,7 +4,7 @@ import os
 # 假设文件路径（您需要根据实际情况进行修改）
 script_dir = os.path.dirname(os.path.realpath(__file__))
 spy_file_path = os.path.join(script_dir, '../data/1927年开始得^SPX.csv')
-qqq_file_path = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
+qqq_file_path = os.path.join(script_dir, '../data/^NDX.csv')
 
 # 读取数据
 spy_data = pd.read_csv(spy_file_path)

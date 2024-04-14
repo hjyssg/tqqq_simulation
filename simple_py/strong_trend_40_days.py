@@ -5,7 +5,7 @@ import os
 # 并且统计那之后10个交易日的涨跌百分比。
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(script_dir, '../data/1985年开始的纳斯达克100^NDX.csv')
+file_path = os.path.join(script_dir, '../data/^NDX.csv')
 df = pd.read_csv(file_path)
 
 # 将 'Date' 列转换为日期时间类型
