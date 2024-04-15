@@ -1,5 +1,5 @@
 import pandas as pd
-import os
+import datetime
 import matplotlib.pyplot as plt
 import os
 import sys
@@ -11,10 +11,12 @@ import _util
 # Usage example:
 filename = "^SPX.csv"
 df_1 = _util.load_csv_as_dataframe(filename)
+multiplier = 3
 
-def calculate_returns(df, start_year, end_year, multiplier):
+
+def calculate_returns(df, start_date, end_date, multiplier):
     # Filter dataframe based on start_year and end_year
-    df = df[(df['Date'].dt.year >= start_year) & (df['Date'].dt.year <= end_year)]
+    df = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
     
     # Calculate n-derivatives
     df_2 = _util.calculate_n_derivatives(df, multiplier)
@@ -35,11 +37,19 @@ import random
 def random_test(df, num_tests=100):
     results = []
     for _ in range(num_tests):
-        start_year = random.randint(1950, 2020)
-        end_year = start_year + 5  # Random 3-year period
-        multiplier = random.choice([3])
-        result = calculate_returns(df, start_year, end_year, multiplier)
+        # Randomly select a start date between 1950-01-01 and 2020-12-31
+        start_date = datetime.datetime(1950, 1, 1) + datetime.timedelta(days=random.randint(0, (2020 - 1950) * 365))
+        # Calculate the end date based on the selected start date
+        end_date = start_date + datetime.timedelta(days=365 * 3)  # 4-year period
+
+
+        result = calculate_returns(df, start_date, end_date, multiplier)
         results.append(result)
+
+        if result > 1000:
+            print(start_date, end_date, result)
+
+
     return results
 
 # Perform random testing
@@ -52,8 +62,8 @@ print(summary_stats)
 
 # Visualize the distribution of results
 plt.hist(results, bins=20, color='skyblue', edgecolor='black')
-plt.xlabel('Derived Return to Original Return Ratio')
+plt.xlabel('Percent')
 plt.ylabel('Frequency')
-plt.title('Distribution of Return Ratios')
+plt.title(f'${filename} ${multiplier} return distribution')
 plt.grid()
 plt.show()
