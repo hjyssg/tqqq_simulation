@@ -31,8 +31,8 @@ def calculate_price_changes(df, periods):
         end_date = pd.to_datetime(end)
         
         # Adjusting the period to get 10 days before and after
-        adjusted_start = start_date - timedelta(days=10)
-        adjusted_end = end_date + timedelta(days=10)
+        adjusted_start = start_date - timedelta(days=30)
+        adjusted_end = end_date + timedelta(days=5)
         
         # Filter the dataframe for the adjusted date range
         mask = (df['Date'] >= adjusted_start) & (df['Date'] <= adjusted_end)
@@ -42,29 +42,35 @@ def calculate_price_changes(df, periods):
             start_price = filtered_data.iloc[0]['Close']
             end_price = filtered_data.iloc[-1]['Close']
             price_change = ((end_price - start_price) / start_price) * 100
+
+            lowest_price = filtered_data['Close'].min()
+            drop_from_start =  ((lowest_price - start_price) / start_price) * 100
+
             results.append({
                 'War': war,
-                'Price Change (%)': price_change,
+                'Price Change (%) 最终涨幅': price_change,
                 'Adjusted Start Date': adjusted_start.date(),
                 'Adjusted End Date': adjusted_end.date(),
-                'Start Price': start_price,
-                'End Price': end_price
-               
+                # 'Start Price': start_price,
+                # 'End Price': end_price,
+                'Drop from Start (%) 期间跌幅': drop_from_start
             })
         else:
             results.append({
                 'War': war,
-                'Price Change (%)': 'N/A',
+                'Price Change (%) 最终涨幅': 'N/A',
                 'Adjusted Start Date': adjusted_start.date(),
                 'Adjusted End Date': adjusted_end.date(),
-                'Start Price': 'N/A',
-                'End Price': 'N/A'
+                # 'Start Price': 'N/A',
+                # 'End Price': 'N/A',
+                'Drop from Start (%)  期间跌幅': drop_from_start
             })
     
     return pd.DataFrame(results)
 
 # Precompute the price changes
 price_changes_df = calculate_price_changes(data, war_periods)
+print(price_changes_df)
 
 app.layout = html.Div([
     html.H1("Stock Price Analysis During Wars"),
