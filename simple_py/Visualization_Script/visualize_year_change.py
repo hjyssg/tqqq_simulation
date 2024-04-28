@@ -3,7 +3,9 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
 import _util
-data = _util.load_csv_as_dataframe("^NDX.csv")
+# data = _util.load_csv_as_dataframe("^NDX.csv")
+data = _util.load_csv_as_dataframe("^SPX.csv")
+
 
 # 特定年份
 # data = data[data['Date'].dt.year > 1985]
@@ -13,7 +15,7 @@ yearly_growth_rates = []  # 用于存储每年的涨幅
 for year in range(data['Date'].dt.year.min(), data['Date'].dt.year.max() + 1):
     yearly_data = data[data['Date'].dt.year == year]
     if not yearly_data.empty:
-        start_price = yearly_data.iloc[0]['Open']
+        start_price = yearly_data.iloc[0]['Open'] if yearly_data.iloc[0]['Open'] else yearly_data.iloc[0]['Close']
         end_price = yearly_data.iloc[-1]['Close']
         yearly_growth = ((end_price - start_price) / start_price) * 100
         yearly_growth_rates.append((year, yearly_growth))
@@ -23,9 +25,9 @@ growth_df = pd.DataFrame(yearly_growth_rates, columns=['Year', 'Yearly Growth'])
 print(growth_df['Yearly Growth'].describe())
 
 # 找出涨幅超过60%的年份
-high_growth_years = growth_df[growth_df['Yearly Growth'] > 40]
-print("Years with Growth Over 60%:")
-print(high_growth_years)
+# high_growth_years = growth_df[growth_df['Yearly Growth'] > 40]
+# print("Years with Growth Over 60%:")
+# print(high_growth_years)
 
 
 
@@ -33,15 +35,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 绘制百分比的分布图
-sns.set(style="whitegrid")
 plt.figure(figsize=(12, 6))
-sns.histplot(growth_df['Yearly Growth'], bins=100, kde=True, color='skyblue')
+sns.histplot(growth_df['Yearly Growth'], bins=30, kde=True, color='skyblue')
 plt.title('Yearly Growth Rate Distribution')
 plt.xlabel('Yearly Growth Rate (%)')
 plt.ylabel('Frequency')
+
+# import mplcursors
+# cursor = mplcursors.cursor(hover=True)
+# cursor.connect(
+#     "add", 
+#     lambda sel: sel.annotation.set_text(
+#         f'Yearly Growth Rate: {sel.target[0]:.2f}%\nFrequency: {sel.target[1]:.0f}'
+#     )
+# )
+
 plt.show()
-
-
 print("--------")
 
 # ndx年化统计

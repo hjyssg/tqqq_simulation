@@ -1,6 +1,5 @@
 import pandas as pd
 import datetime
-import matplotlib.pyplot as plt
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
@@ -61,9 +60,12 @@ summary_stats = results_series.describe()
 print(summary_stats)
 
 # Visualize the distribution of results
-plt.hist(results, bins=20, color='skyblue', edgecolor='black')
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.histplot(results, bins=20, kde=True, color='skyblue', edgecolor='black')
 plt.xlabel('Percent')
 plt.ylabel('Frequency')
 plt.title(f'${filename} ${multiplier} return distribution')
-plt.grid()
+plt.grid(True)
 plt.show()
+

@@ -7,24 +7,43 @@ import _util
 data = _util.load_csv_as_dataframe("^NDX.csv")
 
 # 筛选特定月份的数据
-target_month = 4  
-data['Month'] = data['Date'].dt.month
-monthly_data = data[data['Month'] == target_month]
+target_month = 4 
 
-# 计算每年该月的百分比变化
-monthly_data['Year'] = monthly_data['Date'].dt.year
-monthly_changes = monthly_data.groupby('Year').apply(lambda x: (x['Close'].iloc[-1] - x['Open'].iloc[0]) / x['Open'].iloc[0] * 100)
+def get_data_by_month(target_month):
+    data['Month'] = data['Date'].dt.month
+    monthly_data = data[data['Month'] == target_month]
 
-# print(monthly_changes.head(10))
-print(monthly_changes.describe())
+    # 计算每年该月的百分比变化
+    monthly_data['Year'] = monthly_data['Date'].dt.year
+    monthly_changes = monthly_data.groupby('Year').apply(lambda x: (x['Close'].iloc[-1] - x['Open'].iloc[0]) / x['Open'].iloc[0] * 100)
+
+    # print(monthly_changes.head(10))
+    print(monthly_changes.describe())
+
+    return monthly_changes
+
+
+monthly_changes = get_data_by_month(target_month)
 
 # 画出直方图
-plt.figure(figsize=(10, 6))
-monthly_changes.hist(bins=20)
-plt.title('March Monthly Percentage Change Histogram')
+import seaborn as sns
+# Assuming 'results' is your dataset
+sns.histplot(monthly_changes, bins=30, kde=True, color='skyblue', edgecolor='black')
+# plt.figure(figsize=(10, 6))
+plt.title('Monthly Percentage Change Histogram')
 plt.xlabel('Percentage Change')
 plt.ylabel('Frequency')
 plt.grid(True)
+
+# import mplcursors
+# cursor = mplcursors.cursor(hover=True)
+# cursor.connect(
+#     "add", 
+#     lambda sel: sel.annotation.set_text(
+#         f'{sel.target[0]:.2f}%\n {sel.target[1]:.0f}'
+#     )
+# )
+
 plt.show()
 
 print("--")

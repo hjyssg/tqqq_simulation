@@ -7,7 +7,8 @@ Date,Open,High,Low,Close,Adj Close,Volume
 1971-02-09,100.760002,100.760002,100.760002,100.760002,100.760002,0
 1971-02-10,100.690002,100.690002,100.690002,100.690002,100.690002,0
 
-帮我写个脚本，统计一年12个月。每个月的上涨下跌次数和概率。
+帮我写个脚本。用for loop的实行，股价跌到前高值二分之一的腰斩次数。
+每找到一次，就忘记之前的前高值。从新开始找之后时间段的腰斩只
 
 -------------------
 import pandas as pd
@@ -21,3 +22,12 @@ data = pd.read_csv(file_path)
 # 将 'Date' 列转换为日期时间类型
 data['Date'] = pd.to_datetime(data['Date'])
 TODO
+
+
+print(df.describe())
+
+注意点
+1. 全部计算完再进行可视化。 可视化和计算df的代码要分段，这样方便后期维护。
+2. 用seaborn 画histogram和kde
+3. 用mplcursors来实现tooltip
+4. 可视化label不要写死，用变量
