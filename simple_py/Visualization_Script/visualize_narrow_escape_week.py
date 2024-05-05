@@ -3,7 +3,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
 import _util
-
+import numpy as np
 
 fn = "^NDX.csv"
 data = _util.load_csv_as_dataframe(fn)
@@ -44,23 +44,54 @@ import seaborn as sns
 
 def visualize_later_performance():
     # 计算满足条件周后20周的涨跌幅
-    results = []
+    target_changes = []
     for date in filtered_weeks.index:
         if date + pd.DateOffset(weeks=20) in weekly_data.index:
             initial_close = weekly_data.loc[date, 'Close']
             future_close = weekly_data.loc[date + pd.DateOffset(weeks=20), 'Close']
             change = ((future_close - initial_close) / initial_close) * 100
-            results.append(change)
+            target_changes.append(change)
 
-    # 将结果转换为Pandas Series对象
-    results_series = pd.Series(results)
+    # 随机选择20周期间计算涨跌幅
+    random_changes = []
+    for _ in range(200):  # 生成100个随机20周期间的涨跌幅数据
+        random_start = np.random.randint(0, len(weekly_data) - 20)
+        initial_close = weekly_data.iloc[random_start]['Close']
+        future_close = weekly_data.iloc[random_start + 20]['Close']
+        change = ((future_close - initial_close) / initial_close) * 100
+        random_changes.append(change)
 
-    # 使用Seaborn绘制直方图和KDE
-    plt.figure(figsize=(12, 6))
-    sns.histplot(results_series, kde=True, color='blue', binwidth=1)
-    plt.title('20-Week Price Change Distribution After Specific Weeks')
-    plt.xlabel('Percentage Change')
-    plt.ylabel('Frequency')
+    # 使用Seaborn绘制两组数据的直方图和KDE
+    # plt.figure(figsize=(12, 6))
+    # sns.histplot(target_changes, kde=True, color='blue', label='Specific Criteria 20-Week Changes', binwidth=2)
+    # sns.histplot(random_changes, kde=True, color='red', label='Random 20-Week Changes', binwidth=2)
+    # plt.title('Comparison of 20-Week Price Changes')
+    # plt.xlabel('Percentage Change')
+    # plt.ylabel('Frequency')
+    # plt.legend()
+    # plt.show()
+
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用黑体显示中文
+    plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
+
+    fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(12, 12), gridspec_kw={'hspace': 0.3})
+    sns.histplot(target_changes, kde=True, color='blue', label='Specific Criteria 20-Week Changes', binwidth=2, ax=axes[0])
+    axes[0].set_title('周中跌最后收涨的周的后续表现')
+    axes[0].set_xlabel('Percentage Change')
+    axes[0].set_ylabel('Frequency')
+    axes[0].legend()
+    # 设置x轴的详细刻度
+    axes[0].set_xticks(np.arange(min(target_changes), max(target_changes)+1, 5))
+
+    sns.histplot(random_changes, kde=True, color='red', label='Random 20-Week Changes', binwidth=2, ax=axes[1])
+    axes[1].set_title('随便挑的周的后续表现')
+    axes[1].set_xlabel('Percentage Change')
+    axes[1].set_ylabel('Frequency')
+    axes[1].legend()
+    # 设置x轴的详细刻度
+    axes[1].set_xticks(np.arange(min(random_changes), max(random_changes)+1, 5))
+
+    plt.tight_layout()
     plt.show()
 
 visualize_later_performance()
