@@ -10,7 +10,7 @@ import _util
 data = _util.load_csv_as_dataframe("^SPX.csv")
 import mplcursors
 
-data = data[data["Date"].dt.year > 1970]
+data = data[data["Date"].dt.year > 1950]
 
 
 def calculate_semiannual_percentage_changes(data):
@@ -80,6 +80,12 @@ def plot_semiannual_changes_relationship(changes_df):
 
 # 计算每年上半年和下半年的百分比幅度
 changes_df = calculate_semiannual_percentage_changes(data)
+
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_colwidth', None)
+pd.set_option('display.width', None)
+print(changes_df)
 
 # 可视化
 plot_semiannual_changes_relationship(changes_df)
