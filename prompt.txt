@@ -42,3 +42,7 @@ plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
 3. 用mplcursors来实现tooltip
 4. 可视化label不要写死，用变量
 5. 用descibe打印统计特征
+
+
+---------
+输出成一个csv，然后你帮我分析

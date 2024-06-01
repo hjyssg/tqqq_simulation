@@ -11,13 +11,27 @@ import _util
 # 导入数据
 data = _util.load_csv_as_dataframe("^NDX.csv")  # data is dataframe
 
+data = data[data["Date"].dt.year > 2010]
+
 # 计算涨跌幅度
 data['Pct_Change'] = data['Close'].pct_change() * 100
 
 # 删除首行的NaN值
 data = data.dropna()
-
 print(data['Pct_Change'].describe())
+
+# count    3367.000000
+# mean        0.071471
+# std         1.309143
+# min       -12.193223
+# 25%        -0.491046
+# 50%         0.110177
+# 75%         0.730851
+# max        10.072207
+
+# data.to_csv('percentage_change_data.csv', index=False)
+
+#---------------------------------------------
 
 def render_histogram(data, title):
     # 可视化设置
@@ -42,7 +56,7 @@ def render_histogram(data, title):
     # 显示图表
     plt.show()
 
-render_histogram(data, '所有情况')
+render_histogram(data, '')
 
 
 # 定义牛市和熊市的年份列表
@@ -53,6 +67,33 @@ bear_years = [1973, 1974, 2000, 2001, 2002, 2008, 2009]
 bull_market_data = data[data['Date'].dt.year.isin(bull_years)]
 bear_market_data = data[data['Date'].dt.year.isin(bear_years)]
 
-# 绘制牛市和熊市的涨跌幅度分布图
-render_histogram(bull_market_data, '牛市')
-render_histogram(bear_market_data, '熊市')
+# # 绘制牛市和熊市的涨跌幅度分布图
+# render_histogram(bull_market_data, '牛市')
+# render_histogram(bear_market_data, '熊市')
+
+
+# 结论：移除极端值后是正态分布
+
+
+def shapiro_wilk_test(data, alpha=0.05):
+    from scipy.stats import shapiro
+    """
+    进行Shapiro-Wilk正态性检验。
+    
+    参数:
+    data (pd.Series): 要检验的数据。
+    alpha (float): 显著性水平。默认值为0.05。
+    
+    返回:
+    tuple: (统计量, p值, 检验结果)。
+    """
+    stat, p = shapiro(data)
+    result = '数据服从正态分布 (fail to reject H0)' if p > alpha else '数据不服从正态分布 (reject H0)'
+    return stat, p, result
+
+
+stat, p, result = shapiro_wilk_test(data['Pct_Change'])
+print(f'Statistics={stat}, p={p}')
+print(result)
+
+#---------------------------------------------

@@ -7,7 +7,9 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
 import _util
 # data = _util.load_csv_as_dataframe("^NDX.csv")
-data = _util.load_csv_as_dataframe("^SPX.csv")
+fn = "^SPX.csv"
+fn = "^NDX.csv"
+data = _util.load_csv_as_dataframe(fn)
 import mplcursors
 
 data = data[data["Date"].dt.year > 1950]
@@ -59,7 +61,7 @@ def plot_semiannual_changes_relationship(changes_df):
     
     plt.xlabel('H1 Change (%)')
     plt.ylabel('H2 Change (%)')
-    plt.title('Visualization of H1 vs H2 Percentage Changes Relationship')
+    plt.title(f'Visualization of H1 vs H2 Percentage Changes Relationship of {fn}')
     plt.legend()
     plt.grid(True)
     
