@@ -18,10 +18,14 @@ data = data[data.index.year > 2010]
 # 计算周和月的涨跌幅度
 weekly_data = data['Close'].resample('W').last().pct_change() * 100
 monthly_data = data['Close'].resample('M').last().pct_change() * 100
+year_data = data['Close'].resample('Y').last().pct_change() * 100
+
 
 # 删除NaN值
 weekly_data = weekly_data.dropna()
 monthly_data = monthly_data.dropna()
+year_data = year_data.dropna()
+
 
 print("周涨跌幅度统计特征:")
 print(weekly_data.describe())
@@ -78,6 +82,15 @@ def render_histogram(data, title, time_frame):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
 
+    # 计算并标记分位数线
+    quantiles = data.quantile([0.25, 0.5, 0.75, 0.95])
+    colors = ['blue', 'green', 'red', 'purple']  # 分位数线颜色
+    labels = ['25% 分位数', '50% 分位数 (中位数)', '75% 分位数', '95% 分位数']
+    for quantile, color, label in zip(quantiles, colors, labels):
+        plt.axvline(x=quantile, color=color, label=label, linestyle='--')
+    
+    plt.legend()  # 显示图例
+
     # 添加mplcursors的tooltip功能
     cursor = mplcursors.cursor(hover=True)
     cursor.connect("add", lambda sel: sel.annotation.set_text(f'涨跌幅度: {sel.target[0]:.2f}%'))
@@ -88,6 +101,8 @@ def render_histogram(data, title, time_frame):
 # 渲染周和月的直方图
 render_histogram(weekly_data, '', '周')
 render_histogram(monthly_data, '', '月')
+render_histogram(year_data, '', '年')
+
 
 
 

@@ -1,6 +1,9 @@
 import os
 import pandas as pd
 
+
+
+
 def load_csv_as_dataframe(filename):
     """
     Loads a CSV file into a DataFrame and converts the 'Date' column to datetime.
@@ -28,6 +31,18 @@ def load_csv_as_dataframe(filename):
 
 
     df['Close'] = pd.to_numeric(df['Close'])
+    return df
+
+
+def load_etc_csv_as_dataframe(filename):
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    file_path = os.path.join(script_dir, '../other_data/', filename)
+    df = pd.read_csv(file_path)
+    # 将日期列转换为datetime类型
+    # df['Date'] = pd.to_datetime(df['Date'])
+    # df.sort_values('Date', inplace=True)  # Ensure the data is sorted by date
+    # 过滤掉除了日期列以外所有值都为NaN或Null的行
+    # df = df.dropna(subset=df.columns[df.columns != 'Date'], how='all')
     return df
 
 

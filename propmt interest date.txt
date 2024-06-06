@@ -1,0 +1,69 @@
+我有一个股票数据csv文件。是按日。
+
+-----------------------------------
+Date,Open,High,Low,Close,Adj Close,Volume
+1971-02-05,100.000000,100.000000,100.000000,100.000000,100.000000,0
+1971-02-08,100.839996,100.839996,100.839996,100.839996,100.839996,0
+1971-02-09,100.760002,100.760002,100.760002,100.760002,100.760002,0
+1971-02-10,100.690002,100.690002,100.690002,100.690002,100.690002,0
+
+
+----------------------
+还有一个利率文件。是按月的。
+DATE,FEDFUNDS
+1954-07-01,0.80
+1954-08-01,1.22
+1954-09-01,1.07
+1954-10-01,0.85
+1954-11-01,0.83
+1954-12-01,1.28
+1955-01-01,1.39
+1955-02-01,1.29
+1955-03-01,1.35
+1955-04-01,1.43
+1955-05-01,1.43
+
+
+
+------------------------------
+帮我写python脚本。可视化每次降息周期前后的股票变化。使用dual y axis。
+
+-------------------
+import pandas as pd
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
+import _util
+stock_data = _util.load_csv_as_dataframe("^NDX.csv")  # data is dataframe
+
+
+interest_rate_data = _util.load_etc_csv_as_dataframe("FEDFUNDS.csv")  # data is dataframe
+
+
+
+#...从这里开始续写实际实现。
+
+主要让他们前后的date范围要align
+
+
+# 可视化要避免乱码
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用黑体显示中文
+plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
+
+
+--------------------------------------------
+
+
+注意点
+1. 全部计算完再进行可视化。 可视化和计算df的代码要分段，这样方便后期维护。
+2. 用seaborn 画histogram和kde
+3. 用mplcursors来实现tooltip
+4. 可视化label不要写死，用变量
+5. 用descibe打印统计特征
+
+
+---------
+输出成一个csv，然后你帮我分析
