@@ -9,33 +9,31 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # �
 import _util
 
 # 导入数据
-data = _util.load_csv_as_dataframe("^NDX.csv")  # data is dataframe
+# fn = "^N225.csv"
+# fn = "^SPX.csv"
+fn = "^NDX.csv"
+# fn = "^HSI.csv"
+data = _util.load_csv_as_dataframe(fn)  # data is dataframe
 
-data = data[data["Date"].dt.year > 2010]
+data = data[data["Date"].dt.year > 1950]
+data['Pct_Change'] = data['Close'].pct_change() * 100  # 计算涨跌幅度
 
-# 计算涨跌幅度
-data['Pct_Change'] = data['Close'].pct_change() * 100
 
 # 删除首行的NaN值
 data = data.dropna()
 print(data['Pct_Change'].describe())
 
-# count    3367.000000
-# mean        0.071471
-# std         1.309143
-# min       -12.193223
-# 25%        -0.491046
-# 50%         0.110177
-# 75%         0.730851
-# max        10.072207
-
-# data.to_csv('percentage_change_data.csv', index=False)
+# 过滤掉前1%和后1%的极端值
+lower_bound = data['Pct_Change'].quantile(0.01)
+upper_bound = data['Pct_Change'].quantile(0.99)
+filtered_data = data[(data['Pct_Change'] >= lower_bound) & (data['Pct_Change'] <= upper_bound)]
+print("lower", lower_bound)
+print("up", upper_bound)
 
 #---------------------------------------------
-
 def render_histogram(data, title):
     # 可视化设置
-    hist_label = f'{title}涨跌幅度分布'
+    hist_label = f'{title} {fn} 日涨跌幅度分布'
     x_label = '涨跌幅度 (%)'
     y_label = '频率'
 
@@ -48,25 +46,31 @@ def render_histogram(data, title):
     plt.title(hist_label)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
+    
 
     # 添加mplcursors的tooltip功能
-    cursor = mplcursors.cursor(hover=True)
-    cursor.connect("add", lambda sel: sel.annotation.set_text(f'涨跌幅度: {sel.target[0]:.2f}%'))
+    # cursor = mplcursors.cursor(hover=True)
+    # cursor.connect("add", lambda sel: sel.annotation.set_text(f'涨跌幅度: {sel.target[0]:.2f}%'))
+
+    # 保存图表
+    # filename = f"{hist_label}.png"
+    # plt.savefig(filename, bbox_inches='tight')
 
     # 显示图表
     plt.show()
 
-render_histogram(data, '')
+# render_histogram(data, '')
+render_histogram(filtered_data, '过滤掉极端值的')
+
 
 
 # 定义牛市和熊市的年份列表
-bull_years = [1982, 1983, 1985, 1986, 1987, 1995, 1996, 1997, 1998, 1999]
-bear_years = [1973, 1974, 2000, 2001, 2002, 2008, 2009]
+# bull_years = [1982, 1983, 1985, 1986, 1987, 1995, 1996, 1997, 1998, 1999]
+# bear_years = [1973, 1974, 2000, 2001, 2002, 2008, 2009]
 
-# 筛选牛市和熊市的数据
-bull_market_data = data[data['Date'].dt.year.isin(bull_years)]
-bear_market_data = data[data['Date'].dt.year.isin(bear_years)]
-
+# # 筛选牛市和熊市的数据
+# bull_market_data = data[data['Date'].dt.year.isin(bull_years)]
+# bear_market_data = data[data['Date'].dt.year.isin(bear_years)]
 # # 绘制牛市和熊市的涨跌幅度分布图
 # render_histogram(bull_market_data, '牛市')
 # render_histogram(bear_market_data, '熊市')
@@ -92,8 +96,11 @@ def shapiro_wilk_test(data, alpha=0.05):
     return stat, p, result
 
 
-stat, p, result = shapiro_wilk_test(data['Pct_Change'])
+# stat, p, result = shapiro_wilk_test(data['Pct_Change'])
+stat, p, result = shapiro_wilk_test(filtered_data['Pct_Change'])
 print(f'Statistics={stat}, p={p}')
 print(result)
+
+
 
 #---------------------------------------------
