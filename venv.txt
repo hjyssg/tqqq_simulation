@@ -10,3 +10,5 @@ python -m pip install dash -i https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple yfinance 
 python -m pip install mplfinance -i https://pypi.tuna.tsinghua.edu.cn/simple
 
+pip install tensorflow  -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install scikit-learn -i https://pypi.tuna.tsinghua.edu.cn/simple
