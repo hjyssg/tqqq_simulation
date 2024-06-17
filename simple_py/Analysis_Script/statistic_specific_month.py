@@ -4,10 +4,11 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
 import _util
-data = _util.load_csv_as_dataframe("^NDX.csv")
+data = _util.load_csv_as_dataframe("^SPX.csv")
+data = data[data["Date"].dt.year > 1950]
 
 # 筛选特定月份的数据
-target_month = 4 
+target_month = 6 
 
 def get_data_by_month(target_month):
     data['Month'] = data['Date'].dt.month

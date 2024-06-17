@@ -30,7 +30,7 @@ def process_files(directory):
     results = []
     for root, dirs, files in os.walk(directory):
         for file in files:
-            if file.endswith(".csv"):
+            if file.endswith(".csv") and "^" in file:
                 # if not file.startswith("^"): 
                 #     continue
                 file_path = os.path.join(root, file)
