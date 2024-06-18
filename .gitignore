@@ -28,4 +28,5 @@ futu-news.db
 /simple_py/__pycache__/_util.cpython-311.pyc
 /simple_py/__pycache__/_util.cpython-311.pyc
 /temp_output
-/simple_py/__pycache__/_util.cpython-311.pyc
+/__pycache__/*
+
