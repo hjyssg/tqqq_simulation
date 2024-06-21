@@ -25,6 +25,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # �
 import _util
 data = _util.load_csv_as_dataframe("^NDX.csv")  # data is dataframe
 
+# 只在意二战后的数据
+data = data[data['Date'].dt.year > 1950]
 
 #...从这里开始续写实际实现。
 

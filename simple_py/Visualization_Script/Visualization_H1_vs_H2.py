@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # å
 import _util
 # data = _util.load_csv_as_dataframe("^NDX.csv")
 fn = "^SPX.csv"
-fn = "^NDX.csv"
+# fn = "^NDX.csv"
 data = _util.load_csv_as_dataframe(fn)
 import mplcursors
 
@@ -59,9 +59,10 @@ def plot_semiannual_changes_relationship(changes_df):
     scatter = plt.scatter(x, y, color='green', alpha=0.6, label='Data Points')
     plt.plot(x, y_pred, color='red', label='Regression Line')
     
+    title = f'Visualization of H1 vs H2 Percentage Changes Relationship of {fn}'
     plt.xlabel('H1 Change (%)')
     plt.ylabel('H2 Change (%)')
-    plt.title(f'Visualization of H1 vs H2 Percentage Changes Relationship of {fn}')
+    plt.title(title)
     plt.legend()
     plt.grid(True)
     
@@ -77,6 +78,8 @@ def plot_semiannual_changes_relationship(changes_df):
         f'H2 Change: {changes_df.iloc[sel.index]["H2 Change (%)"]:.2f}%'
     ))
 
+    
+    plt.savefig(title+".jpg")
     plt.show()
 
 
