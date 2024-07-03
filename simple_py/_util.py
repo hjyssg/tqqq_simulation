@@ -70,3 +70,10 @@ def calculate_n_derivatives(df, n):
     return result_df
 
 
+
+import numpy as np
+def calculate_and_print_percentiles(data):
+    # 计算从5%到100%的分位数，步长为5%
+    percentiles = np.percentile(data, np.arange(5, 101, 5))
+    for i, percentile in enumerate(percentiles, start=1):
+        print(f"{i * 5}% percentile: {percentile}")

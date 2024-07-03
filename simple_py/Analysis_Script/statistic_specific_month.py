@@ -40,15 +40,21 @@ def get_data_by_month(target_month):
     monthly_changes = pd.Series(monthly_changes).dropna()
 
     print(monthly_changes.describe())
+    print("偏度", monthly_changes.skew())
+
 
     return monthly_changes
 
 monthly_changes = get_data_by_month(target_month)
 
+
+
+
 # 画出直方图
 import seaborn as sns
 # Assuming 'results' is your dataset
-sns.histplot(monthly_changes, bins=30, kde=True, color='skyblue', edgecolor='black')
+# sns.histplot(monthly_changes, bins=30, kde=True, kde_kws={'bw_adjust': 0.5},  color='skyblue', edgecolor='black')
+sns.histplot(monthly_changes, bins=30, kde=True, kde_kws={'bw_adjust': 0.5}, stat='density',  color='skyblue', edgecolor='black')
 # plt.figure(figsize=(10, 6))
 plt.title('Monthly Percentage Change Histogram')
 plt.xlabel('Percentage Change')
