@@ -6,9 +6,10 @@ python -m pip install matplotlib -i https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install seaborn -i https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install mplcursors -i https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install dash -i https://pypi.tuna.tsinghua.edu.cn/simple
-
 python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple yfinance 
 python -m pip install mplfinance -i https://pypi.tuna.tsinghua.edu.cn/simple
+python -m  pip install tensorflow  -i https://pypi.tuna.tsinghua.edu.cn/simple
+python -m  pip install scikit-learn -i https://pypi.tuna.tsinghua.edu.cn/simple
+python -m  pip install statsmodels -i https://pypi.tuna.tsinghua.edu.cn/simple
+python -m pip install pmdarima -i https://pypi.tuna.tsinghua.edu.cn/simple
 
-pip install tensorflow  -i https://pypi.tuna.tsinghua.edu.cn/simple
-pip install scikit-learn -i https://pypi.tuna.tsinghua.edu.cn/simple
