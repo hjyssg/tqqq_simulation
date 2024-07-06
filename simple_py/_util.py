@@ -77,3 +77,29 @@ def calculate_and_print_percentiles(data):
     percentiles = np.percentile(data, np.arange(5, 101, 5))
     for i, percentile in enumerate(percentiles, start=1):
         print(f"{i * 5}% percentile: {percentile}")
+
+
+
+import pandas as pd
+import scipy.stats as stats
+def calculate_confidence_interval(series, value):
+    """
+    计算给定值在正态分布中的置信区间。
+    """
+    mean = series.mean()
+    std = series.std()
+    
+    z_score = (value - mean) / std
+    
+    # Calculate the cumulative probability of the z_score
+    # 在正态分布中，累积分布函数用于计算一个特定值落在某个范围内的概率。例如，给定一个标准正态分布（均值为 0，标准差为 1）
+    cumulative_prob = stats.norm.cdf(z_score)
+    
+    # Determine the confidence interval based on cumulative probability
+    if cumulative_prob < 0.5:
+        lower_prob = 1 - 2 * cumulative_prob
+    else:
+        lower_prob = 2 * (1 - cumulative_prob)
+    
+    confidence_interval = 100 * lower_prob
+    return confidence_interval

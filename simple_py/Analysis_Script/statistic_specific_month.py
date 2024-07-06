@@ -47,7 +47,7 @@ def get_data_by_month(target_month):
 
 monthly_changes = get_data_by_month(target_month)
 
-
+# print("置信区间", _util.calculate_confidence_interval(monthly_changes, 3.6))
 
 
 # 画出直方图
