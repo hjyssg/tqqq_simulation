@@ -28,9 +28,10 @@ def analyze_post_breakout_performance(df, breakout_dates):
     results = []
     for date in breakout_dates:
         start_index = df.index.get_loc(date)
-        if start_index + 1 < len(df):
+        end_index = start_index + 1
+        if end_index < len(df):
             start_price = df.iloc[start_index]['Close']
-            end_price = df.iloc[start_index + 1]['Close']
+            end_price = df.iloc[end_index]['Close']
             performance = (end_price - start_price) / start_price * 100
             results.append(performance)
     return pd.Series(results)
@@ -39,6 +40,7 @@ def analyze_post_breakout_performance(df, breakout_dates):
 def main(symbol, days):
     filename = f"{symbol}.csv"
     data = _util.load_csv_as_dataframe_v2(filename)
+    # 只在意二战后的数据
     data = data[data.index >= '1950-01-01']
 
     # 将数据重新采样为周数据
@@ -58,7 +60,7 @@ def main(symbol, days):
     # 打印结果
     breakout_dates_str = "\n".join([str(i) for i in breakout_dates])
     print(f"Breakout Dates:\n{breakout_dates_str}")
-    print(f"Performances after {days} trading days:\n{performances.describe()}")
+    print(f"Performances after :\n{performances.describe()}")
 
     # 可视化结果
     plt.figure(figsize=(14, 7))
