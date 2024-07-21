@@ -23,6 +23,7 @@ def download_stock_data(stock_symbol):
 # 主程序，用于下载股票列表中的数据
 if __name__ == "__main__":
     # stock_list = ["^NDX", "^SPX"]
-    stock_list = ["^RUT", "^N225", "^HSI"]
+    # stock_list = ["^RUT", "^N225", "^HSI"]
+    stock_list = ["SMH", "SOXX"]
     for stock_symbol in stock_list:
         download_stock_data(stock_symbol)
