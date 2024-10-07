@@ -13,7 +13,7 @@ Date,Open,High,Low,Close,Adj Close,Volume
 
 帮我写个脚本。画出涨跌幅度的分布的histogram。
 
-如下是其实数据导入代码，你要严格使用。不需要改动。
+如下是数据导入代码，你要严格使用。不需要改动。
 -------------------
 import pandas as pd
 import os

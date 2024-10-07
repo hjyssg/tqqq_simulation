@@ -20,8 +20,8 @@ weekly_df = df.resample('W').agg({'Open': 'first', 'Close': 'last'})
 weekly_df['Weekly Return'] = ((weekly_df['Close'] - weekly_df['Open']) / weekly_df['Open']) * 100
 
 # 找出所有开盘到收盘下跌超过5%的周
-drop_value_min = -2
-drop_value_max = -3
+drop_value_min = -3
+drop_value_max = -4
 decline_weeks = weekly_df[(weekly_df['Weekly Return'] <= drop_value_min) & (weekly_df['Weekly Return'] >= drop_value_max)]
 
 # 找出下一周的涨跌百分比
@@ -38,4 +38,20 @@ next_week_return.to_csv('decline_weeks.csv', index=True)  # index=True保留日�
 
 
 #----------------------------------------------------
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
+# Your existing code to process and filter data
+# I'm assuming the next_week_return DataFrame is correctly prepared as above
+
+# Visualization of the results
+plt.figure(figsize=(10, 6))
+sns.histplot(next_week_return, bins=20, kde=True, color='blue')
+
+plt.title(f'Histogram and KDE of Weekly Returns After a Drop Between {drop_value_max}% and {drop_value_min}%')
+plt.xlabel('Next Week Return (%)')
+plt.ylabel('Frequency')
+plt.grid(True)
+
+plt.show()
