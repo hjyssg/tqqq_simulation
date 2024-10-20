@@ -21,3 +21,38 @@
 
 """
 
+
+
+----------
+我有一个股票数据csv文件
+
+-----------------------------------
+Date,Open,High,Low,Close,Adj Close,Volume
+1971-02-05,100.000000,100.000000,100.000000,100.000000,100.000000,0
+1971-02-08,100.839996,100.839996,100.839996,100.839996,100.839996,0
+1971-02-09,100.760002,100.760002,100.760002,100.760002,100.760002,0
+1971-02-10,100.690002,100.690002,100.690002,100.690002,100.690002,0
+
+帮我写个脚本。进行可视化期权价格变化。
+可视化我在2023买入2025年6月到期的略高于价外的spy call。
+假设利率和波动率不变。
+
+-------------------
+import pandas as pd
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
+import _util
+data = _util.load_csv_as_dataframe("^NDX.csv")  # data is dataframe
+
+# 只在意二战后的数据
+data = data[data['Date'].dt.year > 2023]
+
+#...从这里开始续写实际实现。
+
+# 避免乱码
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用黑体显示中文
+plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号

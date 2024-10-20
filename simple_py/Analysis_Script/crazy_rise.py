@@ -9,7 +9,9 @@ import _util
 
 # 读取数据
 # data = _util.load_csv_as_dataframe("^SPX.csv")
-data = _util.load_csv_as_dataframe("^NDX.csv")
+# data = _util.load_csv_as_dataframe("^NDX.csv")
+data = _util.load_csv_as_dataframe("^HSI.csv")
+
 
 
 # 确保日期列为datetime格式，并按照日期排序
@@ -20,7 +22,7 @@ data = data.sort_values(by='Date')
 data['10d_change'] = data['Adj Close'].pct_change(periods=10) * 100
 
 # 找出10天内涨幅超过25%的行
-significant_rise = data[data['10d_change'] > 25]
+significant_rise = data[data['10d_change'] > 20]
 
 # 输出结果
 print("历史上10天内上涨超过25%的期间：")

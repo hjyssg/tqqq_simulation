@@ -7,18 +7,23 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # �
 import _util
 
 # 读取数据
-data = _util.load_csv_as_dataframe("^SPX.csv")
+# data = _util.load_csv_as_dataframe("^SPX.csv")
+data = _util.load_csv_as_dataframe("^HSI.csv")
+
 
 # 确保日期列为datetime格式，并按照日期排序
 data['Date'] = pd.to_datetime(data['Date'])
 data = data.sort_values(by='Date')
 
 # 筛选1932年的数据
-data_1932 = data[(data['Date'] >= '1931-01-01') & (data['Date'] <= '1934-12-31')]
+data_1932 = data[(data['Date'] >= '1987-01-01') & (data['Date'] <= '1989-12-31')]
+data_1932 = data[(data['Date'] >= '1997-01-01') & (data['Date'] <= '1999-12-31')]
+
+
 
 # 可视化1932年的股票走势
 plt.figure(figsize=(18, 10))  # 设置图表大小为 1800x1000 像素
-plt.plot(data_1932['Date'], data_1932['Adj Close'], label='Adjusted Close Price in 1932')
+plt.plot(data_1932['Date'], data_1932['Adj Close'], label='Adjusted Close Price')
 
 # 设置标签和标题
 plt.xlabel('Date')
