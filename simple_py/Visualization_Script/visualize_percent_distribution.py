@@ -17,24 +17,39 @@ data = data.set_index('Date')  # Set 'Date' as the index
 data = data[data.index.year > 1950]
 
 # 计算周和月的涨跌幅度
+daily_data = data['Close'].pct_change() * 100  # 日涨跌幅
 weekly_data = data['Close'].resample('W').last().pct_change() * 100
 monthly_data = data['Close'].resample('M').last().pct_change() * 100
 year_data = data['Close'].resample('Y').last().pct_change() * 100
 
 
 # 删除NaN值
+daily_data = daily_data.dropna()
 weekly_data = weekly_data.dropna()
 monthly_data = monthly_data.dropna()
 year_data = year_data.dropna()
 
-
-print("周涨跌幅度统计特征:")
+# 打印统计特征
+print("日涨跌幅度统计特征:")
+print(daily_data.describe())
+print("\n周涨跌幅度统计特征:")
 print(weekly_data.describe())
 print("\n月涨跌幅度统计特征:")
 print(monthly_data.describe())
+print("\n年涨跌幅度统计特征:")
+print(year_data.describe())
 
+# 打印百分位数（以10%为间隔）
+def print_percentiles(data, time_frame):
+    print(f"\n{time_frame}涨跌幅度的百分位数（每10%为间隔）：")
+    for i in range(10, 101, 10):  # 从10%到100%每10%打印一次
+        percentile_value = data.quantile(i / 100)
+        print(f"{i}%: {percentile_value:.2f}%")
 
-
+print_percentiles(daily_data, '日')
+print_percentiles(weekly_data, '周')
+print_percentiles(monthly_data, '月')
+print_percentiles(year_data, '年')
 
 
 
@@ -72,33 +87,10 @@ def render_histogram(data, title, time_frame):
     # 显示图表
     plt.show()
 
-# 渲染周和月的直方图
+# 渲染日、周、月、年的直方图
+render_histogram(daily_data, '', '日')
 render_histogram(weekly_data, '', '周')
 render_histogram(monthly_data, '', '月')
 render_histogram(year_data, '', '年')
-
-
-
-
-# 周涨跌幅度统计特征:
-# count    698.000000
-# mean       0.336792
-# std        2.627321
-# min      -12.519540
-# 25%       -1.133871
-# 50%        0.464701
-# 75%        1.916004
-# max        9.436903
-# Name: Close, dtype: float64
-
-# 月涨跌幅度统计特征:
-# count    160.000000
-# mean       1.447657
-# std        5.002319
-# min      -13.368546
-# 25%       -1.696964
-# 50%        1.845703
-# 75%        4.743749
-# max       15.191780
 
 
