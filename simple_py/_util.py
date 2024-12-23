@@ -6,6 +6,10 @@ import pandas as pd
 def load_csv_as_dataframe(filename):
     script_dir = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(script_dir, '../data/', filename)
+    # 如果文件不存在，抛出异常
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File '{file_path}' not found")
+    
     df = pd.read_csv(file_path)
     df['Date'] = pd.to_datetime(df['Date'])
     
@@ -21,6 +25,10 @@ def load_csv_as_dataframe(filename):
 def load_csv_as_dataframe_v2(filename):
     script_dir = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(script_dir, '../data/', filename)
+    # 如果文件不存在，抛出异常
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File '{file_path}' not found")
+    
     df = pd.read_csv(file_path, index_col='Date', parse_dates=True)
     # df = df.dropna(subset=df.columns[df.columns != 'Date'], how='all')
     # df['Close'] = pd.to_numeric(df['Close'])
