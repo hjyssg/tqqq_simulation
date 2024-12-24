@@ -23,46 +23,7 @@ multiplier = 3
 filename = "^SPX.csv"
 real_left_fn = "upro.csv"
 
-def compare_sim_with_real(sim_left, real_letf):
-    # 比较sim_left和real_letf的数据，按年比较。
-    # 按年比较
-    for year in range(start_year, end_year + 1):
-        sim_year = sim_left[sim_left['Date'].dt.year == year]
-        real_year = real_letf[real_letf['Date'].dt.year == year]
 
-        if not sim_year.empty and not real_year.empty:
-            sim_start = sim_year.iloc[0]['Close']
-            sim_end = sim_year.iloc[-1]['Close']
-            real_start = real_year.iloc[0]['Close']
-            real_end = real_year.iloc[-1]['Close']
-
-            sim_pct_change = ((sim_end - sim_start) / sim_start) * 100
-            real_pct_change = ((real_end - real_start) / real_start) * 100
-            print(f'Year {year}: Simulated % Change = {sim_pct_change:.2f}%, Real % Change = {real_pct_change:.2f}%')
-
-    """
-        结论：因为time decay和操作成本，实际的回报率会比模拟的回报率低。
-
-        ^NDX.csv return from 2012 to 2022: 365.54%
-        Simulate Derived return from 2012 to 2022: 3005.27%
-        tqqq.csv return from 2012 to 2022: 2211.16%
-
-        ^SPX.csv return from 2012 to 2022: 201.89%
-        Simulate Derived return from 2012 to 2022: 1169.66%
-        upro.csv return from 2012 to 2022: 1147.19%
-
-        ^SPX.csv return from 2012 to 2023: 277.48%
-        Simulate Derived return from 2012 to 2023: 2280.36%
-        upro.csv return from 2012 to 2023: 1983.35%
-
-        ^NDX.csv return from 2012 to 2022: 365.54%
-        Simulate Derived return from 2012 to 2022: 1366.66%
-        QLD.csv return from 2012 to 2022: 1228.06%
-
-        ^NDX.csv return from 2012 to 2023: 623.80%
-        Simulate Derived return from 2012 to 2023: 3355.48%
-        QLD.csv return from 2012 to 2023: 2780.49%
-    """
 
 # 主函数
 def main():
@@ -74,7 +35,6 @@ def main():
 
     real_letf = _util.load_csv_as_dataframe(real_left_fn)
     real_letf = real_letf[(real_letf['Date'].dt.year >= start_year) & (real_letf['Date'].dt.year <= end_year)]
-    compare_sim_with_real(sim_left, real_letf)
 
 
     # 计算并打印最终回报率
