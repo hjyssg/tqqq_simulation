@@ -27,7 +27,7 @@ def simulate_one(init_asset):
         # 随机波动
         if RANDOM_ON:
             rate = RETURN_RATE * (1 + random.uniform(-RATE_FLUCTUATION, RATE_FLUCTUATION))  # 收益率波动
-            expense_inflation = 1 + random.uniform(-EXPENSE_FLUCTUATION, EXPENSE_FLUCTUATION)  # 花费波动
+            expense_inflation = 1 + random.uniform(0, EXPENSE_FLUCTUATION)  # 花费波动
         else:
             rate = RETURN_RATE
             expense_inflation = 1 + INFLATION_RATE
@@ -39,19 +39,51 @@ def simulate_one(init_asset):
 
         if new_asset < 0:
             print(f"初始资产{init_asset} 在 第{year}年资产为负数，模拟结束！")
-            break
+            return "failed", year
         
         # 记录新的资产和花费
         assets.append(new_asset)
         expenses.append(new_expense)
 
+    return "passed", None
 
-for time in range(100): # 模拟100次
-    for i in range(200, 500, 10): # 初始资产范围：200万到500万
-        simulate_one(i)
+
+# 初始化统计数据结构
+initial_assets = range(200, 501, 10)  # 200-500万，步长10万
+failure_counts = {i:0 for i in initial_assets}
+fail_years = []
+
+# 运行模拟
+for _ in range(100):  # 每个资产模拟100次
+    for asset in initial_assets:
+        result, fail_year = simulate_one(asset)
+        if result == "failed":
+            failure_counts[asset] += 1
+            fail_years.append(fail_year)
+
+# 绘制资产-失败概率直方图
+assets = list(failure_counts.keys())
+failure_rates = [failure_counts[a]/100 for a in assets]
+
+
+# 避免乱码
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用黑体显示中文
+plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
+
+plt.figure(figsize=(12, 6))
+plt.bar(assets, failure_rates, width=8, edgecolor='black')
+plt.xticks(assets, rotation=45, fontsize=8)
+plt.xlabel("初始资产（万）")
+plt.ylabel("失败次数")
+plt.title("FIRE 失败次数 vs 初始资产 (每组100次模拟)")
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+
 
 
 """
-初始资产较低（200万至250万）时，通常无法支撑超过20-30年的模拟，
-因为资产在模拟的早期就已经因为每年固定花费和较低的收益率波动而变为负数。即使是初始资产为250万的情况下，在某些情况下也会在30年内变为负数。
+结论：
+310万之前的初始资产，FIRE失败概率非常高，380万之后的初始资产，FIRE失败概率非常低。
+要400万
 """
