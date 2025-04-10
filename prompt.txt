@@ -7,14 +7,13 @@ Date,Open,High,Low,Close,Adj Close,Volume
 1971-02-09,100.760002,100.760002,100.760002,100.760002,100.760002,0
 1971-02-10,100.690002,100.690002,100.690002,100.690002,100.690002,0
 
-帮我写个脚本。用for loop的实行，股价跌到前高值二分之一的腰斩次数。
-每找到一次，就忘记之前的前高值。从新开始找之后时间段的腰斩
+我想知道古巴核弹危机前后的股票变动和事件进展。
 
-
-帮我写个脚本。画出涨跌幅度的分布的histogram。
-
-如下是数据导入代码，你要严格使用。不需要改动。
 -------------------
+"""
+    在代码开头写下整个文件的目的。
+    并且帮我给文件取名。
+"""
 import pandas as pd
 import os
 import pandas as pd
@@ -23,12 +22,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # 将util.py所在的目录添加到系统路径中
 import _util
-data = _util.load_csv_as_dataframe("^NDX.csv")  # data is dataframe
-
-# 只在意二战后的数据
-data = data[data['Date'].dt.year > 1950]
-
-#...从这里开始续写实际实现。
+data = _util.load_csv_as_dataframe("^SPX.csv")  # data is dataframe
 
 # 避免乱码
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 用黑体显示中文
@@ -37,14 +31,13 @@ plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
 
 --------------------------------------------
 
+严格使用我的data import代码。
+代码的注释和ui都使用英语
 
+----------------------------------------
 注意点
 1. 全部计算完再进行可视化。 可视化和计算df的代码要分段，这样方便后期维护。
 2. 用seaborn 画histogram和kde
 3. 用mplcursors来实现tooltip
 4. 可视化label不要写死，用变量
-5. 用descibe打印统计特征
-
-
----------
-输出成一个csv，然后你帮我分析
+5. 用descibe()打印统计特征
