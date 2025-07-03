@@ -6,6 +6,7 @@
 /.scannerwork
 .pnp.js
 .sonar_lock
+/simple_py/clean_data/*
 
 # testing
 /coverage
