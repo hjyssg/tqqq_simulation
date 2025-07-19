@@ -8,7 +8,7 @@ data = _util.load_csv_as_dataframe("^SPX.csv")
 data = data[data["Date"].dt.year > 1950]
 
 # 筛选特定月份的数据
-target_month = 1
+target_month = 3
 
 
 def get_data_by_month(target_month):
@@ -57,7 +57,7 @@ monthly_changes = get_data_by_month(target_month)
 
 # 画出直方图
 import seaborn as sns
-sns.histplot(monthly_changes, bins=30, kde=True, kde_kws={'bw_adjust': 0.5}, stat='density',  color='skyblue', edgecolor='black')
+sns.histplot(monthly_changes, bins=30, kde=True, kde_kws={'bw_adjust': 0.5},   color='skyblue', edgecolor='black')
 plt.title('Monthly Percentage Change Histogram')
 plt.xlabel('Percentage Change')
 plt.ylabel('Frequency')
@@ -65,6 +65,6 @@ plt.grid(True)
 
 output_path = os.path.join(f'{target_month} performance.png')
 plt.savefig(output_path)
-# plt.show()
+plt.show()
 
-print("--")
+# print("--")
