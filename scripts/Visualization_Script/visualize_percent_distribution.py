@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import _util
 
 # 导入数据
-fn = "^SPX.csv"
+fn = "^NDX.csv"
 data = _util.load_csv_as_dataframe(fn)  # data is a DataFrame
 data['Date'] = pd.to_datetime(data['Date'])  # Ensure 'Date' is a datetime object
 data = data.set_index('Date')  # Set 'Date' as the index
