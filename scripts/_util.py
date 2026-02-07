@@ -113,6 +113,27 @@ def calculate_confidence_interval_normal(series, value):
     return confidence_interval
 
 
+import matplotlib.pyplot as plt
+
+def init_plotting():
+    """
+    初始化绘图设置，支持中文显示和负号显示。
+    """
+    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用黑体显示中文
+    plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
+    plt.style.use('seaborn-v0_8-whitegrid') # 设置一个美观的风格
+
+def show_plot(title=None, xlabel=None, ylabel=None):
+    """
+    设置标题和标签，整理布局并显示图表。
+    """
+    if title: plt.title(title)
+    if xlabel: plt.xlabel(xlabel)
+    if ylabel: plt.ylabel(ylabel)
+    plt.tight_layout()
+    plt.show()
+
+
 def calculate_confidence_interval_for_far_tail(series, value):
     """
     计算给定值在厚尾分布中的置信区间。
