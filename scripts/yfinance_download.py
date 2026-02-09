@@ -26,12 +26,13 @@ def download_stock_data(stock_symbol):
 
 # 主程序，用于下载股票列表中的数据
 if __name__ == "__main__":
+    stock_list = ["CNY=X"]
     # stock_list = ["^NDX", "^SPX"]
     # stock_list = ["^RUT", "^N225", "^HSI"]
     # stock_list = ["SMH", "SOXX", "SSO"]
     # stock_list =  ["sso", "upro", "qqq"]
     # stock_list =  ["NVDA"]
-    stock_list = ["tqqq", "qld", "qqq"]
+    # stock_list = ["tqqq", "qld", "qqq"]
     # stock_list = ["IOO", "OEF"]
     for stock_symbol in stock_list:
         download_stock_data(stock_symbol)
