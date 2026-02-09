@@ -34,6 +34,9 @@
 - `159941.SZ.csv`：NDX QDII（日线）
 - `CNY=X.csv`：USD/CNY 汇率（日线）
 
+
+不要去尝试阅读整个csv，分分钟会把llm的context撑爆
+
 ---
 
 ## 四、定价模型
