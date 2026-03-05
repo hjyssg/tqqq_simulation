@@ -1,7 +1,7 @@
 import yfinance as yf
 import os  # 导入用于处理路径的库
-os.environ['HTTP_PROXY'] = 'socks5://127.0.0.1:10808'
-os.environ['HTTPS_PROXY'] = 'socks5://127.0.0.1:10808'
+# os.environ['HTTP_PROXY'] = 'socks5://127.0.0.1:10808'
+# os.environ['HTTPS_PROXY'] = 'socks5://127.0.0.1:10808'
 
 
 
@@ -26,9 +26,9 @@ def download_stock_data(stock_symbol):
 
 # 主程序，用于下载股票列表中的数据
 if __name__ == "__main__":
-    stock_list = ["CNY=X"]
-    stock_list = ["159941.SZ", "513650.SS"]
-    # stock_list = ["^NDX", "^SPX"]
+    # stock_list = ["CNY=X"]
+    # stock_list = ["159941.SZ", "513650.SS"]
+    stock_list = ["^NDX", "^SPX"]
     # stock_list = ["^RUT", "^N225", "^HSI"]
     # stock_list = ["SMH", "SOXX", "SSO"]
     # stock_list =  ["sso", "upro", "qqq"]
