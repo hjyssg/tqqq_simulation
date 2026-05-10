@@ -10,7 +10,35 @@ def load_csv_as_dataframe(filename):
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File '{file_path}' not found")
     
+    # 尝试加载
     df = pd.read_csv(file_path)
+    
+    # 检测奇葩格式：Price, Adj Close, Close ... (第一行)
+    # Ticker, ^NDX, ^NDX ... (第二行)
+    # Date, , , ... (第三行)
+    if 'Price' in df.columns and any('Ticker' in str(val) for val in df.iloc[0]):
+        # 这种格式下，第三行索引为1的是真正的列名，但包含大量空值
+        # 实际上真正的列名是第一行，只是 Date 被错放到了第三行第一列
+        df = pd.read_csv(file_path, skiprows=[1, 2])
+        if 'Price' in df.columns:
+            df.rename(columns={'Price': 'Date'}, inplace=True)
+    
+    # 清洗列名
+    df.columns = [str(c).strip().replace('"', '').replace("'", "") for c in df.columns]
+    
+    # 确保 Date 存在
+    if 'Date' not in df.columns:
+        # 尝试暴力搜索
+        for i in range(min(5, len(df))):
+           if 'Date' in str(df.iloc[i, 0]):
+               df = pd.read_csv(file_path, skiprows=i+1)
+               df.columns = [str(c).strip().replace('"', '').replace("'", "") for c in df.columns]
+               break
+
+    # 过滤掉无效行
+    df = df.dropna(subset=['Date'], how='any')
+    df = df[df['Date'].astype(str).str.contains(r'\d{4}')] # 必须包含年份
+
     df['Date'] = pd.to_datetime(df['Date'])
     
     # Ensure the data is sorted by date
