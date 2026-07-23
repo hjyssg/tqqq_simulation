@@ -147,9 +147,13 @@ def init_plotting():
     """
     初始化绘图设置，支持中文显示和负号显示。
     """
-    plt.rcParams['font.sans-serif'] = ['SimHei']  # 用黑体显示中文
+    # 尝试多种常用的中文字体
+    plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'SimSun', 'Arial Unicode MS', 'DejaVu Sans']
     plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
-    plt.style.use('seaborn-v0_8-whitegrid') # 设置一个美观的风格
+    try:
+        plt.style.use('seaborn-v0_8-whitegrid') # 设置一个美观的风格
+    except:
+        plt.style.use('ggplot')
 
 def show_plot(title=None, xlabel=None, ylabel=None):
     """
