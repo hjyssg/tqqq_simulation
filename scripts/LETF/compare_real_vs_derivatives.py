@@ -21,7 +21,7 @@ end_year = 2023
 
 multiplier = 3
 filename = "^SPX.csv"
-real_left_fn = "upro.csv"
+real_left_fn = "UPRO.csv"
 
 def compare_sim_with_real(sim_left, real_letf):
     # 比较sim_left和real_letf的数据 按日比较

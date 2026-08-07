@@ -49,8 +49,8 @@ def load_data():
     n225 = load_index(DATA_DIR / '^N225.csv', 'N225')
     ndx = load_index(DATA_DIR / '^NDX.csv', 'NDX')
     spx = load_index(DATA_DIR / '^SPX.csv', 'SPX')
-    tqqq = load_index(DATA_DIR / 'tqqq.csv', 'TQQQ')
-    qqq = pd.read_csv(DATA_DIR / 'qqq.csv')
+    tqqq = load_index(DATA_DIR / 'TQQQ.csv', 'TQQQ')
+    qqq = pd.read_csv(DATA_DIR / 'QQQ.csv')
     qqq = qqq.iloc[2:].copy()
     qqq.columns = ['Date', 'Adj Close', 'Close', 'High', 'Low', 'Open', 'Volume']
     qqq['Date'] = pd.to_datetime(qqq['Date'])

@@ -49,7 +49,7 @@ def load_data():
         return df.sort_index()
     
     # 加载数据
-    qqq = load_single(DATA_DIR / 'qqq.csv', 'QQQ')
+    qqq = load_single(DATA_DIR / 'QQQ.csv', 'QQQ')
     smh = load_single(DATA_DIR / 'SMH.csv', 'SMH')
     soxx = load_single(DATA_DIR / 'SOXX.csv', 'SOXX')
     ndx = load_single(DATA_DIR / '^NDX.csv', 'NDX')

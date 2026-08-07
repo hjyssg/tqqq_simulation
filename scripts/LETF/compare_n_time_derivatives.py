@@ -21,7 +21,7 @@ end_year = 2023
 
 multiplier = 3
 filename = "^SPX.csv"
-real_left_fn = "upro.csv"
+real_left_fn = "UPRO.csv"
 
 
 

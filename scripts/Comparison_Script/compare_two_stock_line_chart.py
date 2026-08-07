@@ -7,8 +7,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) # �
 import _util
 
 # 读取数据
-f1 = "sso.csv"
-f2 = "upro.csv"
+f1 = "SSO.csv"
+f2 = "UPRO.csv"
 spy_data = _util.load_csv_as_dataframe(f1)
 qqq_data = _util.load_csv_as_dataframe(f2)
 
