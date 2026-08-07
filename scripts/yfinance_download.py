@@ -35,7 +35,8 @@ if __name__ == "__main__":
     # stock_list =  ["NVDA"]
     # stock_list = ["tqqq", "qld", "qqq"]
     # stock_list = ["IOO", "OEF"]
-    # QQQ / SPY 及相关衍生产品（杠杆 / 反向 ETF）
-    stock_list = ["QQQ", "SPY", "TQQQ", "QLD", "SQQQ", "SSO", "UPRO", "SPXL", "SPXS"]
+    # QQQ / SPY 及相关衍生产品（杠杆 ETF，不含反向）
+    # SMH = 半导体 ETF，用于半导体板块分析
+    stock_list = ["QQQ", "SPY", "TQQQ", "QLD", "SSO", "UPRO", "SPXL", "SMH"]
     for stock_symbol in stock_list:
         download_stock_data(stock_symbol)
