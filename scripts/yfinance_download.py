@@ -28,12 +28,14 @@ def download_stock_data(stock_symbol):
 if __name__ == "__main__":
     # stock_list = ["CNY=X"]
     # stock_list = ["159941.SZ", "513650.SS"]
-    stock_list = ["^NDX", "^SPX"]
+    # stock_list = ["^NDX", "^SPX"]
     # stock_list = ["^RUT", "^N225", "^HSI"]
     # stock_list = ["SMH", "SOXX", "SSO"]
     # stock_list =  ["sso", "upro", "qqq"]
     # stock_list =  ["NVDA"]
     # stock_list = ["tqqq", "qld", "qqq"]
     # stock_list = ["IOO", "OEF"]
+    # QQQ / SPY 及相关衍生产品（杠杆 / 反向 ETF）
+    stock_list = ["QQQ", "SPY", "TQQQ", "QLD", "SQQQ", "SSO", "UPRO", "SPXL", "SPXS"]
     for stock_symbol in stock_list:
         download_stock_data(stock_symbol)
